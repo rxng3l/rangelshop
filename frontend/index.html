@@ -33,7 +33,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* 📋 BARRA DE NAVEGACIÓN SUPERIOR SIMPLIFICADA */
+/* 📋 BARRA DE NAVEGACIÓN SUPERIOR */
 .navbar {
     background-color: rgba(9, 9, 11, 0.9);
     backdrop-filter: blur(8px);
@@ -92,7 +92,7 @@ body {
     color: var(--text-white);
 }
 
-/* 🏢 CONTENEDOR PRINCIPAL CON MARGEN TOP PARA EL NAVBAR */
+/* 🏢 CONTENEDOR PRINCIPAL */
 .app-container {
     margin-top: 70px;
     flex-grow: 1;
@@ -119,7 +119,6 @@ body {
     }
 }
 
-/* SISTEMA DE OCULTADO DE SECCIONES GENERALES */
 .tab-content {
     display: none;
     width: 100%;
@@ -130,7 +129,6 @@ body {
     display: flex;
 }
 
-/* VISTAS DE PÁGINA COMPLETA SCROLLABLE */
 .full-page-view {
     width: 100%;
     padding: 40px;
@@ -150,7 +148,6 @@ body {
 .hero-banner h1 { font-size: 38px; margin: 0 0 16px 0; font-weight: 700; }
 .hero-banner p { color: var(--text-muted); font-size: 16px; margin: 0; max-width: 600px; }
 
-/* REJILLA DE TARJETAS PRINCIPALES */
 .content-grid-two {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
@@ -186,14 +183,14 @@ body {
 .card-title { font-size: 18px; font-weight: 600; margin: 0 0 10px 0; }
 .card-desc { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 20px; }
 
-/* 📁 CONTENEDOR TIPO CARPETA PARA HERRAMIENTAS INTERNAS */
+/* 📁 CONTENEDOR CARPETA DE HERRAMIENTAS */
 .folder-container {
     background: #101012;
     border: 1px solid var(--border-color);
     border-radius: 16px;
     padding: 24px;
     margin-top: 20px;
-    display: none; /* Se activa mediante JS */
+    display: none;
 }
 
 .folder-header {
@@ -228,7 +225,6 @@ body {
 }
 .close-folder-btn:hover { background: #3f3f46; }
 
-/* Menú interno de pestañas de la carpeta */
 .folder-tabs {
     display: flex;
     gap: 12px;
@@ -252,17 +248,17 @@ body {
     border-color: var(--accent-blue);
 }
 
-/* ÁREA DE TRABAJO DE LA HERRAMIENTA */
+/* ÁREA DE TRABAJO EN LA HERRAMIENTA */
 .tools-workspace {
     display: flex;
     background: var(--bg-dark);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
-    height: 600px;
+    height: 650px;
 }
 
-/* 🗂️ BARRA LATERAL DEL EXTRACTOR */
+/* 🗂️ SIDEBAR REDISEÑADA */
 .sidebar {
     width: 340px;
     background-color: var(--bg-card);
@@ -279,6 +275,19 @@ body {
     flex-grow: 1;
 }
 
+/* Contenedor del Logo en la parte superior */
+.sidebar-logo-container {
+    text-align: center;
+    padding: 10px 0 25px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+.sidebar-logo-container img {
+    max-width: 140px;
+    height: auto;
+    object-fit: contain;
+}
+
 .control-group { margin-bottom: 20px; }
 
 .file-upload-wrapper {
@@ -293,7 +302,6 @@ body {
 .file-upload-wrapper input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
 .upload-icon { font-size: 20px; margin-bottom: 6px; display: block; }
 .upload-text { font-size: 12px; font-weight: 600; margin: 0; }
-.upload-sub { font-size: 11px; color: var(--text-muted); margin: 4px 0 0; }
 
 .color-picker-row {
     display: flex;
@@ -313,10 +321,7 @@ body {
 input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; background: #2c2c2e; border-radius: 999px; }
 input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-blue); border: 2px solid var(--text-white); cursor: pointer; }
 
-#downloadBtn { width: 100%; background: transparent; border: 1px solid var(--border-color); color: var(--text-white); padding: 10px; border-radius: 8px; font-size: 12px; cursor: pointer; }
-
-.sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border-color); background: var(--bg-card); }
-
+/* Botones reestructurados */
 .btn-primary {
     width: 100%;
     background: var(--accent-blue);
@@ -331,7 +336,27 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px;
 }
 .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
 
-/* VISTA DE CANVAS */
+#downloadBtn { 
+    width: 100%; 
+    background: transparent; 
+    border: 1px solid var(--border-color); 
+    color: var(--text-white); 
+    padding: 12px; 
+    border-radius: 10px; 
+    font-size: 12px; 
+    font-weight: 600;
+    cursor: pointer; 
+}
+#downloadBtn:hover { background: #1c1c1e; border-color: #3e3e42; }
+
+/* Sección baja de la barra lateral */
+.sidebar-footer { 
+    padding: 16px 20px; 
+    border-top: 1px solid var(--border-color); 
+    background: var(--bg-card); 
+}
+
+/* CANVAS */
 .main-view {
     flex-grow: 1;
     display: flex;
@@ -422,8 +447,12 @@ canvas {
                     <div class="tools-workspace">
                         <div class="sidebar">
                             <div class="sidebar-content">
+                                
+                                <div class="sidebar-logo-container">
+                                    <img src="logo.png" alt="RangelShop Logo Pro">
+                                </div>
+
                                 <div class="control-group">
-                                    <h3 class="section-title">Archivo Original</h3>
                                     <div class="file-upload-wrapper">
                                         <span class="upload-icon">📁</span>
                                         <p class="upload-text">Sube tu diseño</p>
@@ -431,26 +460,28 @@ canvas {
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <h3 class="section-title">Muestra de Color</h3>
+                                    <h3 class="section-title" style="font-size: 13px; margin-bottom: 10px;">Muestra de Color</h3>
                                     <div class="color-picker-row">
                                         <p>Tono Seleccionado</p>
                                         <div id="colorBox"></div>
                                     </div>
                                 </div>
                                 <div class="control-group">
-                                    <h3 class="section-title">Parámetros</h3>
+                                    <h3 class="section-title" style="font-size: 13px; margin-bottom: 10px;">Parámetros</h3>
                                     <div class="slider-header">
                                         <label for="tolerance">Tolerancia</label>
                                         <span id="tolValue">120</span>
                                     </div>
                                     <input type="range" id="tolerance" min="0" max="300" value="120">
                                 </div>
-                                <div class="control-group" style="margin-top: 30px;">
-                                    <button type="button" id="downloadBtn">Descargar PNG Limpio</button>
+
+                                <div class="control-group" style="margin-top: 25px;">
+                                    <button type="button" class="btn-primary" onclick="removeColor()">Separar / Eliminar Color</button>
                                 </div>
                             </div>
+
                             <div class="sidebar-footer">
-                                <button type="button" class="btn-primary" onclick="removeColor()">Separar / Eliminar Color</button>
+                                <button type="button" id="downloadBtn">Descargar PNG Limpio</button>
                             </div>
                         </div>
                         <div class="main-view">
@@ -499,7 +530,6 @@ canvas {
     </div>
 
 <script>
-// 📂 GESTIÓN DE LA CARPETA DE HERRAMIENTAS INTERNA
 function openToolsFolder() {
     const folder = document.getElementById('toolsFolder');
     folder.style.display = 'block';
@@ -510,7 +540,6 @@ function closeToolsFolder() {
     document.getElementById('toolsFolder').style.display = 'none';
 }
 
-// 🧠 NAVEGACIÓN GENERAL DEL NAVBAR
 function switchTab(tabId) {
     const contents = document.querySelectorAll('.tab-content');
     contents.forEach(content => content.classList.remove('active-tab'));
@@ -528,8 +557,7 @@ function switchTab(tabId) {
     }
 }
 
-
-// 🎨 LÓGICA ORIGINAL DEL EXTRACTOR DE FONDOS
+// LÓGICA DE CANVAS EXTRACTOR
 let selectedColor = [0,0,0];
 let resultURL = "";
 
@@ -575,8 +603,8 @@ async function removeColor(){
     formData.append("b", selectedColor[2]);
     formData.append("tolerance", document.getElementById("tolerance").value);
 
-    const mainBtn = document.querySelector(".sidebar-footer .btn-primary");
-    mainBtn.innerText = "Procesando en Render...";
+    const mainBtn = document.querySelector(".control-group .btn-primary");
+    mainBtn.innerText = "Procesando...";
     mainBtn.style.opacity = "0.7";
 
     try {
@@ -598,7 +626,7 @@ async function removeColor(){
         };
         img.src = resultURL;
     } catch (err) {
-        alert("Ocurrió un problema al procesar la imagen. Verifica que el servidor esté despierto.");
+        alert("Ocurrió un problema al procesar la imagen.");
     } finally {
         mainBtn.innerText = "Separar / Eliminar Color";
         mainBtn.style.opacity = "1";
@@ -606,7 +634,7 @@ async function removeColor(){
 }
 
 document.getElementById("downloadBtn").addEventListener("click", ()=>{
-    if(!resultURL) return alert("Primero procesa una imagen usando el botón azul.");
+    if(!resultURL) return alert("Primero procesa una imagen usando el botón de arriba.");
 
     const a = document.createElement("a");
     a.href = resultURL;
