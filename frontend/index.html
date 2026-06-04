@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RangelShop — Plataforma DTF Pro</title>
 
-<!-- Tipografías de Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -149,7 +148,7 @@ body {
 }
 
 .hero-banner h1 { font-size: 38px; margin: 0 0 16px 0; font-weight: 700; }
-.hero-banner p { color: var(--text-muted); font-size: 16px; margin: 0 0 24px 0; max-width: 600px; }
+.hero-banner p { color: var(--text-muted); font-size: 16px; margin: 0; max-width: 600px; }
 
 /* REJILLA DE TARJETAS PRINCIPALES */
 .content-grid-two {
@@ -194,7 +193,7 @@ body {
     border-radius: 16px;
     padding: 24px;
     margin-top: 20px;
-    display: none; /* Se activa mediante JS al abrir la carpeta */
+    display: none; /* Se activa mediante JS */
 }
 
 .folder-header {
@@ -318,6 +317,20 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px;
 
 .sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border-color); background: var(--bg-card); }
 
+.btn-primary {
+    width: 100%;
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
 /* VISTA DE CANVAS */
 .main-view {
     flex-grow: 1;
@@ -352,7 +365,6 @@ canvas {
 </head>
 <body>
 
-    <!-- 📋 NAVBAR SIMPLIFICADO -->
     <nav class="navbar">
         <a href="#" class="nav-brand" onclick="switchTab('inicio')">
             <img src="logo.png" alt="RangelShop">
@@ -365,23 +377,18 @@ canvas {
         </ul>
     </nav>
 
-    <!-- 🏢 CONTAINER PRINCIPAL -->
     <div class="app-container">
         
-        <!-- 🏠 SECCIÓN 1: INICIO (CONTIENE LA CARPETA Y LOS DOS CUADROS ESTRATÉGICOS) -->
         <div id="tab-inicio" class="tab-content full-page-view active-tab">
             <div style="width:100%;">
                 <div class="hero-banner">
                     <h1>Bienvenido a RangelShop Pro</h1>
                     <p>La plataforma definitiva para profesionales del DTF. Procesa tus imágenes con velocidad cuántica, adquiere plantillas exclusivas y escala tus producciones.</p>
-                    <button class="btn-primary" style="width:auto; padding: 12px 24px;" onclick="openToolsFolder()">Comenzar a Limpiar Imagen</button>
                 </div>
                 
                 <h3 class="section-title">Servicios Destacados</h3>
                 
-                <!-- Rejilla de Dos Cuadros Principales -->
                 <div class="content-grid-two">
-                    <!-- Cuadro Mega Pack -->
                     <div class="pro-card" style="cursor: pointer;" onclick="switchTab('membresias')">
                         <div class="card-img-placeholder">📦</div>
                         <div class="card-body">
@@ -391,7 +398,6 @@ canvas {
                         </div>
                     </div>
                     
-                    <!-- Cuadro Herramientas DTF (Actúa como Carpeta) -->
                     <div class="pro-card" style="cursor: pointer; border-color: rgba(59, 130, 246, 0.4);" onclick="openToolsFolder()">
                         <div class="card-img-placeholder">🛠️</div>
                         <div class="card-body">
@@ -402,20 +408,17 @@ canvas {
                     </div>
                 </div>
 
-                <!-- 📂 CARPETA CONTENEDORA DE HERRAMIENTAS (DESPLEGABLE INTERNO) -->
                 <div id="toolsFolder" class="folder-container">
                     <div class="folder-header">
                         <div class="folder-title">📁 Carpeta: Herramientas del Sistema</div>
                         <button class="close-folder-btn" onclick="closeToolsFolder()">Cerrar Carpeta ↑</button>
                     </div>
 
-                    <!-- Pestañas internas de la carpeta (Para meter más herramientas en el futuro) -->
                     <div class="folder-tabs">
                         <button class="folder-tab-btn active">Quitar Fondo (Extractor)</button>
                         <button class="folder-tab-btn" disabled style="opacity:0.4; cursor:not-allowed;">+ Próxima Herramienta</button>
                     </div>
 
-                    <!-- Módulo Técnico: Extractor de Color original -->
                     <div class="tools-workspace">
                         <div class="sidebar">
                             <div class="sidebar-content">
@@ -454,12 +457,9 @@ canvas {
                             <canvas id="canvas"></canvas>
                         </div>
                     </div>
-                </div> <!-- Fin de Carpeta -->
-
-            </div>
+                </div> </div>
         </div>
 
-        <!-- 🚀 SECCIÓN 2: ESCALADOR AI -->
         <div id="tab-escalador" class="tab-content full-page-view">
             <div style="width:100%; text-align: center; padding-top: 60px;">
                 <span style="font-size: 64px;">🚀</span>
@@ -474,7 +474,6 @@ canvas {
             </div>
         </div>
 
-        <!-- 💳 SECCIÓN 3: MEMBRESÍAS -->
         <div id="tab-membresias" class="tab-content full-page-view">
             <div style="width:100%;">
                 <div style="text-align:center; margin-bottom: 40px;">
@@ -504,12 +503,11 @@ canvas {
 function openToolsFolder() {
     const folder = document.getElementById('toolsFolder');
     folder.style.display = 'block';
-    // Hace scroll suave automático hacia la zona de herramientas abiertos
     folder.scrollIntoView({ behavior: 'smooth' });
 }
 
 function closeToolsFolder() {
-    document.getElementById('toolsFolder').style.style.display = 'none';
+    document.getElementById('toolsFolder').style.display = 'none';
 }
 
 // 🧠 NAVEGACIÓN GENERAL DEL NAVBAR
@@ -525,14 +523,13 @@ function switchTab(tabId) {
     const activeBtn = document.getElementById(`btn-${tabId}`);
     if(activeBtn) activeBtn.classList.add('active');
 
-    // Al cambiar de sección, cerramos la carpeta automáticamente para mantener el orden
     if(tabId !== 'inicio') {
         document.getElementById('toolsFolder').style.display = 'none';
     }
 }
 
 
-// 🎨 LÓGICA ORIGINAL DEL EXTRACTOR DE FONDOS CONNECTADO A PYTHON
+// 🎨 LÓGICA ORIGINAL DEL EXTRACTOR DE FONDOS
 let selectedColor = [0,0,0];
 let resultURL = "";
 
