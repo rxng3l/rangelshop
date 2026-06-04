@@ -2,378 +2,319 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<title>Rangel Shop - Editor DTF Pro</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Rangel Shop — Plataforma DTF Pro</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Cinzel:wght@700&display=swap" rel="stylesheet">
 
 <style>
 :root {
-    --bg-main: #f4f6fa;
-    --sidebar-bg: #ffffff;
-    --border-color: #e2e8f0;
-    --text-main: #1e293b;
-    --text-muted: #64748b;
+    --bg-dark: #09090b;
+    --bg-card: #141416;
+    --border-color: #232326;
+    --text-white: #f4f4f5;
+    --text-muted: #a1a1aa;
     --accent-blue: #3b82f6;
     --accent-hover: #2563eb;
-    --input-bg: #f8fafc;
 }
 
 body {
     margin: 0;
     padding: 0;
     font-family: 'Inter', sans-serif;
-    background-color: var(--bg-main);
-    color: var(--text-main);
-    height: 100vh;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    min-height: 100vh;
     display: flex;
-    overflow: hidden;
+    flex-direction: column;
     -webkit-font-smoothing: antialiased;
 }
 
-/* 🗂️ CONTENEDOR DE LA BARRA LATERAL (IZQUIERDA) */
-.sidebar {
-    width: 360px;
-    min-width: 360px;
-    background: var(--sidebar-bg);
-    border-right: 1px solid var(--border-color);
+/* 📋 BARRA DE NAVEGACIÓN SUPERIOR (ESTILO LIMITED) */
+.navbar {
+    background-color: rgba(9, 9, 11, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: 70px;
     display: flex;
-    flex-content: column;
-    flex-direction: column;
+    align-items: center;
     justify-content: space-between;
-    height: 100vh;
-    box-shadow: 4px 0 24px rgba(0, 0, 0, 0.02);
-    z-index: 10;
+    padding: 0 40px;
+    box-sizing: border-box;
+    z-index: 100;
 }
 
-.sidebar-scroll-content {
+.nav-brand {
+    font-family: 'Cinzel', serif; /* Tipografía con fuerza para el logo */
+    font-size: 22px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    color: var(--text-white);
+    text-decoration: none;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    transition: color 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
+    color: var(--text-white);
+}
+
+/* 🏢 CONTENEDOR PRINCIPAL CON MARGEN TOP PARA EL NAVBAR */
+.app-container {
+    margin-top: 70px;
+    flex-grow: 1;
+    display: flex;
+    height: calc(100vh - 70px);
+}
+
+/* 🗂️ BARRA LATERAL IZQUIERDA DE HERRAMIENTAS */
+.sidebar {
+    width: 360px;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.sidebar-content {
     padding: 24px;
     overflow-y: auto;
     flex-grow: 1;
 }
 
-/* 🔥 HEADER LOGO & MARCA */
-.brand-section {
-    display: flex;
-    align-items: center;
-    gap: 14px;
-    margin-bottom: 32px;
-    padding-bottom: 16px;
-    border-bottom: 1px solid var(--border-color);
-}
-
-.logo {
-    width: 50px;
-    height: auto;
-    border-radius: 8px;
-    object-fit: contain;
-}
-
-.brand-text h1 {
-    margin: 0;
-    font-size: 18px;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: #0f172a;
-}
-
-.brand-text p {
-    margin: 2px 0 0;
-    color: var(--text-muted);
-    font-size: 11px;
-    font-weight: 500;
-}
-
-/* SECCIONES INTERNAS */
 .section-title {
     font-size: 11px;
     font-weight: 700;
     text-transform: uppercase;
-    letter-spacing: 0.7px;
+    letter-spacing: 1px;
     color: var(--text-muted);
-    margin-top: 0;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
 }
 
 .control-group {
     margin-bottom: 28px;
 }
 
-/* INPUT DE ARCHIVO ESTILO ÁREA DE SOLTAR (DROPZONE) */
+/* DROPZONE PREMIUM */
 .file-upload-wrapper {
     position: relative;
-    background: var(--input-bg);
-    border: 1px dashed #cbd5e1;
+    background: #1c1c1e;
+    border: 1px dashed #3a3a3c;
     border-radius: 12px;
-    padding: 20px;
+    padding: 24px;
     text-align: center;
-    transition: all 0.2s ease;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 .file-upload-wrapper:hover {
     border-color: var(--accent-blue);
-    background: #f0f7ff;
+    background: #242426;
 }
 
 .file-upload-wrapper input[type="file"] {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0;
-    cursor: pointer;
+    opacity: 0; cursor: pointer;
 }
 
-.upload-icon {
-    font-size: 24px;
-    margin-bottom: 6px;
-    display: block;
-}
+.upload-icon { font-size: 24px; margin-bottom: 8px; display: block; }
+.upload-text { font-size: 13px; font-weight: 600; margin: 0; }
+.upload-sub { font-size: 11px; color: var(--text-muted); margin: 4px 0 0; }
 
-.upload-text {
-    font-size: 13px;
-    font-weight: 600;
-    color: #334155;
-    margin: 0;
-}
-
-.upload-sub {
-    font-size: 11px;
-    color: var(--text-muted);
-    margin: 4px 0 0;
-}
-
-/* COLOR SELECCIONADO */
+/* SELECCIÓN DE COLOR */
 .color-picker-row {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background: var(--input-bg);
-    padding: 12px 16px;
+    background: #1c1c1e;
+    padding: 14px 16px;
     border-radius: 12px;
     border: 1px solid var(--border-color);
 }
 
-.color-picker-row p {
-    margin: 0;
-    font-size: 13px;
-    font-weight: 500;
-    color: #334155;
-}
-
+.color-picker-row p { margin: 0; font-size: 13px; font-weight: 500; }
 #colorBox {
-    width: 36px;
-    height: 36px;
+    width: 32px; height: 32px;
     border-radius: 8px;
-    border: 2px solid white;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    border: 2px solid #2c2c2e;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
 }
 
-/* DESLIZADOR (SLIDER) DE TOLERANCIA */
+/* DESLIZADOR DE TOLERANCIA */
 .slider-header {
     display: flex;
     justify-content: space-between;
-    align-items: center;
     margin-bottom: 8px;
-}
-
-.slider-header label {
     font-size: 13px;
-    font-weight: 500;
-    color: #334155;
 }
-
 #tolValue {
-    font-size: 12px;
-    font-weight: 600;
     color: var(--accent-blue);
-    background: #eff6ff;
-    padding: 2px 8px;
-    border-radius: 6px;
-    border: 1px solid #dbeafe;
+    font-weight: 600;
 }
-
 input[type=range] {
     -webkit-appearance: none;
-    width: 100%;
-    height: 6px;
-    background: #e2e8f0;
+    width: 100%; height: 4px;
+    background: #2c2c2e;
     border-radius: 999px;
     outline: none;
-    margin: 8px 0;
 }
-
 input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 50%;
-    background: var(--accent-blue);
-    cursor: pointer;
-    border: 2px solid white;
-    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
-    transition: transform 0.1s;
+    width: 16px; height: 16px; border-radius: 50%;
+    background: var(--accent-blue); cursor: pointer;
+    border: 2px solid var(--text-white);
 }
 
-input[type=range]::-webkit-slider-thumb:hover {
-    transform: scale(1.2);
-}
-
-/* 📥 BOTÓN DE DESCARGA SECUNDARIO */
 #downloadBtn {
     width: 100%;
-    background: #ffffff;
+    background: transparent;
     border: 1px solid var(--border-color);
-    color: #334155;
+    color: var(--text-white);
     padding: 12px;
     border-radius: 10px;
-    font-family: 'Inter', sans-serif;
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
     transition: all 0.2s;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 8px;
 }
-
 #downloadBtn:hover {
-    background: #f8fafc;
-    border-color: #cbd5e1;
+    background: #1c1c1e;
+    border-color: var(--text-muted);
 }
 
-/* 🚀 BOTÓN PRINCIPAL ABAJO (ELIMINAR COLOR) */
 .sidebar-footer {
-    padding: 16px 24px 24px 24px;
+    padding: 20px 24px;
     border-top: 1px solid var(--border-color);
-    background: #ffffff;
+    background: var(--bg-card);
 }
 
 .btn-primary {
     width: 100%;
-    background: linear-gradient(135deg, var(--accent-blue), var(--accent-hover));
+    background: var(--accent-blue);
     color: white;
     border: none;
     padding: 14px;
     border-radius: 10px;
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
+    font-size: 13px;
     font-weight: 600;
     cursor: pointer;
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
     transition: all 0.2s;
 }
-
 .btn-primary:hover {
+    background: var(--accent-hover);
     transform: translateY(-1px);
-    box-shadow: 0 6px 16px rgba(59, 130, 246, 0.35);
 }
 
-.btn-primary:active {
-    transform: translateY(0);
-}
-
-
-/* 🖥️ ÁREA DE VISUALIZACIÓN DEL CANVAS (DERECHA) */
+/* 🖥️ CANVAS DE VISUALIZACIÓN (DERECHA) */
 .main-view {
     flex-grow: 1;
-    height: 100vh;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
     padding: 40px;
-    box-sizing: border-box;
-    position: relative;
-    overflow: auto;
-}
-
-/* Contenedor que centra el Canvas en la zona gigante */
-.canvas-holder {
-    max-width: 100%;
-    max-height: 100%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    background: #0f0f11;
 }
 
 canvas {
     max-width: 100%;
-    max-height: 85vh;
+    max-height: 75vh;
     object-fit: contain;
-    border-radius: 8px;
-    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-    background-image: linear-gradient(45deg, #e2e8f0 25%, transparent 25%), 
-                      linear-gradient(-45deg, #e2e8f0 25%, transparent 25%), 
-                      linear-gradient(45deg, transparent 75%, #e2e8f0 75%), 
-                      linear-gradient(-45deg, transparent 75%, #e2e8f0 75%);
-    background-size: 16px 16px;
-    background-position: 0 0, 0 8px, 8px -8px, -8px 0px; /* Fondo cuadriculado transparente industrial */
+    border-radius: 12px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+    /* Fondo transparente modo oscuro industrial */
+    background-image: linear-gradient(45deg, #18181b 25%, transparent 25%), 
+                      linear-gradient(-45deg, #18181b 25%, transparent 25%), 
+                      linear-gradient(45deg, transparent 75%, #18181b 75%), 
+                      linear-gradient(-45deg, transparent 75%, #18181b 75%);
+    background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
-
 </style>
 </head>
 <body>
 
-    <div class="sidebar">
+    <nav class="navbar">
+        <a href="#" class="nav-brand">RANGEL LIMITED</a>
+        <ul class="nav-menu">
+            <li><a href="#" class="nav-link">Inicio</a></li>
+            <li><a href="#" class="nav-link">Diseños</a></li>
+            <li><a href="#" class="nav-link active">Extractor de Color</a></li>
+            <li><li><a href="#" class="nav-link">Escalador AI</a></li>
+            <li><a href="#" class="nav-link">Membresías</a></li>
+        </ul>
+    </nav>
+
+    <div class="app-container">
         
-        <div class="sidebar-scroll-content">
-            
-            <div class="brand-section">
-                <img src="logo.png" class="logo" alt="Logo">
-                <div class="brand-text">
-                    <h1>Rangel Shop</h1>
-                    <p>Herramientas Pro · DTF</p>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <h3 class="section-title">Diseño Original</h3>
-                <div class="file-upload-wrapper">
-                    <span class="upload-icon">📁</span>
-                    <p class="upload-text">Subir Archivo de Imagen</p>
-                    <p class="upload-sub">Formatos soportados: PNG, JPG</p>
-                    <input type="file" id="imageInput">
-                </div>
-            </div>
-
-            <div class="control-group">
-                <h3 class="section-title">Color de Muestra</h3>
-                <div class="color-picker-row">
-                    <p>Color seleccionado</p>
-                    <div id="colorBox"></div>
-                </div>
-            </div>
-
-            <div class="control-group">
-                <h3 class="section-title">Agrupación de Colores</h3>
-                <div class="slider-container">
-                    <div class="slider-header">
-                        <label for="tolerance">Tolerancia de Fusión</label>
-                        <span id="tolValue">120</span>
+        <div class="sidebar">
+            <div class="sidebar-content">
+                
+                <div class="control-group">
+                    <h3 class="section-title">Archivo Original</h3>
+                    <div class="file-upload-wrapper">
+                        <span class="upload-icon">📁</span>
+                        <p class="upload-text">Arrastra o sube tu diseño</p>
+                        <p class="upload-sub">Formatos PNG, JPG certificados</p>
+                        <input type="file" id="imageInput">
                     </div>
-                    <input type="range" id="tolerance" min="0" max="300" value="120">
                 </div>
+
+                <div class="control-group">
+                    <h3 class="section-title">Muestra de Color</h3>
+                    <div class="color-picker-row">
+                        <p>Tono Seleccionado</p>
+                        <div id="colorBox"></div>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <h3 class="section-title">Parámetros</h3>
+                    <div class="slider-container">
+                        <div class="slider-header">
+                            <label for="tolerance">Tolerancia de Fusión</label>
+                            <span id="tolValue">120</span>
+                        </div>
+                        <input type="range" id="tolerance" min="0" max="300" value="120">
+                    </div>
+                </div>
+
+                <div class="control-group" style="margin-top: 40px;">
+                    <h3 class="section-title">Exportación</h3>
+                    <button type="button" id="downloadBtn">Descargar PNG Limpio</button>
+                </div>
+
             </div>
 
-            <div class="control-group" style="margin-top: 40px;">
-                <h3 class="section-title">Salida</h3>
-                <button type="button" id="downloadBtn">⬇️ Descargar PNG</button>
+            <div class="sidebar-footer">
+                <button type="button" class="btn-primary" onclick="removeColor()">Separar / Eliminar Color</button>
             </div>
-
         </div>
 
-        <div class="sidebar-footer">
-            <button type="button" class="btn-primary" onclick="removeColor()">Separar/Eliminar Color</button>
-        </div>
-
-    </div>
-
-    <div class="main-view">
-        <div class="canvas-holder">
+        <div class="main-view">
             <canvas id="canvas"></canvas>
         </div>
+
     </div>
 
 <script>
@@ -408,13 +349,12 @@ canvas.addEventListener("click", function(e){
     const pixel = ctx.getImageData(x,y,1,1).data;
     selectedColor = [pixel[0],pixel[1],pixel[2]];
 
-    document.getElementById("colorBox").style.background =
-    `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
+    document.getElementById("colorBox").style.background = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
 });
 
 async function removeColor(){
     const file = document.getElementById("imageInput").files[0];
-    if(!file) return alert("Sube una imagen");
+    if(!file) return alert("Por favor sube una imagen primero.");
 
     const formData = new FormData();
     formData.append("image", file);
@@ -423,8 +363,7 @@ async function removeColor(){
     formData.append("b", selectedColor[2]);
     formData.append("tolerance", document.getElementById("tolerance").value);
 
-    // 🌟 AQUÍ SE AGREGÓ LA URL DE TU BACKEND EN RENDER 🌟
-const res = await fetch("https://rangelshop-backend.onrender.com/remove-background", {
+    const res = await fetch("https://rangelshop-backend.onrender.com/remove-background", {
         method:"POST",
         body:formData
     });
@@ -446,7 +385,7 @@ document.getElementById("downloadBtn").addEventListener("click", ()=>{
 
     const a = document.createElement("a");
     a.href = resultURL;
-    a.download = "rangel_shop.png";
+    a.download = "rangel_shop_pro.png";
     a.click();
 });
 </script>
