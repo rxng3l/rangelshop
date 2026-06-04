@@ -5,6 +5,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RangelShop — Plataforma DTF Pro</title>
 
+<!-- Tipografías de Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -33,7 +34,7 @@ body {
     -webkit-font-smoothing: antialiased;
 }
 
-/* 📋 BARRA DE NAVEGACIÓN SUPERIOR */
+/* 📋 BARRA DE NAVEGACIÓN SUPERIOR SIMPLIFICADA */
 .navbar {
     background-color: rgba(9, 9, 11, 0.9);
     backdrop-filter: blur(8px);
@@ -110,12 +111,16 @@ body {
         border-right: none !important;
         border-bottom: 1px solid var(--border-color);
     }
+    .tools-workspace {
+        flex-direction: column !important;
+        height: auto !important;
+    }
     .main-view {
         height: 60vh;
     }
 }
 
-/* SISTEMA DE OCULTADO DE SECCIONES */
+/* SISTEMA DE OCULTADO DE SECCIONES GENERALES */
 .tab-content {
     display: none;
     width: 100%;
@@ -126,165 +131,7 @@ body {
     display: flex;
 }
 
-/* 🗂️ BARRA LATERAL IZQUIERDA DE HERRAMIENTAS */
-.sidebar {
-    width: 360px;
-    background-color: var(--bg-card);
-    border-right: 1px solid var(--border-color);
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    flex-shrink: 0;
-}
-
-.sidebar-content {
-    padding: 24px;
-    overflow-y: auto;
-    flex-grow: 1;
-}
-
-.section-title {
-    font-size: 11px;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    color: var(--text-muted);
-    margin-bottom: 16px;
-}
-
-.control-group {
-    margin-bottom: 28px;
-}
-
-/* CONTENEDORES DE SUBIDA DE ARCHIVOS */
-.file-upload-wrapper {
-    position: relative;
-    background: #1c1c1e;
-    border: 1px dashed #3a3a3c;
-    border-radius: 12px;
-    padding: 24px;
-    text-align: center;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-
-.file-upload-wrapper:hover {
-    border-color: var(--accent-blue);
-    background: #242426;
-}
-
-.file-upload-wrapper input[type="file"] {
-    position: absolute;
-    top: 0; left: 0; width: 100%; height: 100%;
-    opacity: 0; cursor: pointer;
-}
-
-.upload-icon { font-size: 24px; margin-bottom: 8px; display: block; }
-.upload-text { font-size: 13px; font-weight: 600; margin: 0; }
-.upload-sub { font-size: 11px; color: var(--text-muted); margin: 4px 0 0; }
-
-/* RECUADRO DE COLOR SELECCIONADO */
-.color-picker-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background: #1c1c1e;
-    padding: 14px 16px;
-    border-radius: 12px;
-    border: 1px solid var(--border-color);
-}
-
-.color-picker-row p { margin: 0; font-size: 13px; font-weight: 500; }
-#colorBox {
-    width: 32px; height: 32px;
-    border-radius: 8px;
-    border: 2px solid #2c2c2e;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.5);
-    background: #000000;
-}
-
-/* DESLIZADOR */
-.slider-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 8px;
-    font-size: 13px;
-}
-#tolValue { color: var(--accent-blue); font-weight: 600; }
-input[type=range] {
-    -webkit-appearance: none;
-    width: 100%; height: 4px;
-    background: #2c2c2e;
-    border-radius: 999px;
-    outline: none;
-}
-input[type=range]::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    width: 16px; height: 16px; border-radius: 50%;
-    background: var(--accent-blue); cursor: pointer;
-    border: 2px solid var(--text-white);
-}
-
-#downloadBtn {
-    width: 100%;
-    background: transparent;
-    border: 1px solid var(--border-color);
-    color: var(--text-white);
-    padding: 12px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 500;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-#downloadBtn:hover { background: #1c1c1e; border-color: var(--text-muted); }
-
-.sidebar-footer {
-    padding: 20px 24px;
-    border-top: 1px solid var(--border-color);
-    background: var(--bg-card);
-}
-
-.btn-primary {
-    width: 100%;
-    background: var(--accent-blue);
-    color: white;
-    border: none;
-    padding: 14px;
-    border-radius: 10px;
-    font-size: 13px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s;
-}
-.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
-
-/* 🖥️ CANVAS DE VISUALIZACIÓN EXTRACTOR */
-.main-view {
-    flex-grow: 1;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px;
-    background: #0f0f11;
-    overflow: hidden;
-}
-
-canvas {
-    max-width: 100%;
-    max-height: 75vh;
-    object-fit: contain;
-    border-radius: 12px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.6);
-    background-image: linear-gradient(45deg, #18181b 25%, transparent 25%), 
-                      linear-gradient(-45deg, #18181b 25%, transparent 25%), 
-                      linear-gradient(45deg, transparent 75%, #18181b 75%), 
-                      linear-gradient(-45deg, transparent 75%, #18181b 75%);
-    background-size: 20px 20px;
-    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-}
-
-/* 📱 ESTILOS PARA LAS NUEVAS VISTAS COMPLETAS (INICIO, DISEÑOS, ETC.) */
+/* VISTAS DE PÁGINA COMPLETA SCROLLABLE */
 .full-page-view {
     width: 100%;
     padding: 40px;
@@ -304,12 +151,12 @@ canvas {
 .hero-banner h1 { font-size: 38px; margin: 0 0 16px 0; font-weight: 700; }
 .hero-banner p { color: var(--text-muted); font-size: 16px; margin: 0 0 24px 0; max-width: 600px; }
 
-/* REJILLA DE TARJETAS (ESTILO DOS COLUMNAS REQUERIDO) */
+/* REJILLA DE TARJETAS PRINCIPALES */
 .content-grid-two {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
     gap: 30px;
-    margin-top: 10px;
+    margin-bottom: 40px;
 }
 
 .pro-card {
@@ -326,7 +173,7 @@ canvas {
 }
 
 .card-img-placeholder {
-    height: 220px;
+    height: 180px;
     background: #1c1c1e;
     display: flex;
     align-items: center;
@@ -340,32 +187,172 @@ canvas {
 .card-title { font-size: 18px; font-weight: 600; margin: 0 0 10px 0; }
 .card-desc { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 20px; }
 
-/* DISEÑO DE LA VISTA DE MEMBRESÍAS */
-.pricing-container {
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-    margin-top: 20px;
-    flex-wrap: wrap;
-}
-
-.price-card {
-    background: var(--bg-card);
+/* 📁 CONTENEDOR TIPO CARPETA PARA HERRAMIENTAS INTERNAS */
+.folder-container {
+    background: #101012;
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 40px;
-    width: 300px;
-    text-align: center;
+    padding: 24px;
+    margin-top: 20px;
+    display: none; /* Se activa mediante JS al abrir la carpeta */
 }
 
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 14px;
+    margin-bottom: 24px;
+}
+
+.folder-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.close-folder-btn {
+    background: #27272a;
+    border: none;
+    color: var(--text-white);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.close-folder-btn:hover { background: #3f3f46; }
+
+/* Menú interno de pestañas de la carpeta */
+.folder-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+}
+
+.folder-tab-btn {
+    background: #18181b;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+.folder-tab-btn.active {
+    background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+/* ÁREA DE TRABAJO DE LA HERRAMIENTA */
+.tools-workspace {
+    display: flex;
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    height: 600px;
+}
+
+/* 🗂️ BARRA LATERAL DEL EXTRACTOR */
+.sidebar {
+    width: 340px;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.sidebar-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.control-group { margin-bottom: 20px; }
+
+.file-upload-wrapper {
+    position: relative;
+    background: #1c1c1e;
+    border: 1px dashed #3a3a3c;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+}
+.file-upload-wrapper input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.upload-icon { font-size: 20px; margin-bottom: 6px; display: block; }
+.upload-text { font-size: 12px; font-weight: 600; margin: 0; }
+.upload-sub { font-size: 11px; color: var(--text-muted); margin: 4px 0 0; }
+
+.color-picker-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1c1c1e;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+.color-picker-row p { margin: 0; font-size: 12px; }
+#colorBox { width: 28px; height: 28px; border-radius: 6px; border: 2px solid #2c2c2e; background: #000000; }
+
+.slider-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; }
+#tolValue { color: var(--accent-blue); font-weight: 600; }
+
+input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; background: #2c2c2e; border-radius: 999px; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-blue); border: 2px solid var(--text-white); cursor: pointer; }
+
+#downloadBtn { width: 100%; background: transparent; border: 1px solid var(--border-color); color: var(--text-white); padding: 10px; border-radius: 8px; font-size: 12px; cursor: pointer; }
+
+.sidebar-footer { padding: 16px 20px; border-top: 1px solid var(--border-color); background: var(--bg-card); }
+
+/* VISTA DE CANVAS */
+.main-view {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #09090b;
+    overflow: hidden;
+}
+
+canvas {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background-image: linear-gradient(45deg, #18181b 25%, transparent 25%), 
+                      linear-gradient(-45deg, #18181b 25%, transparent 25%), 
+                      linear-gradient(45deg, transparent 75%, #18181b 75%), 
+                      linear-gradient(-45deg, transparent 75%, #18181b 75%);
+    background-size: 16px 16px;
+}
+
+/* SECCIONES COMPLEMENTARIAS */
+.pricing-container { display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
+.price-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; width: 300px; text-align: center; }
 .price-card.featured { border-color: var(--accent-purple); position: relative; }
 .price-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent-purple); font-size: 11px; padding: 4px 12px; border-radius: 999px; font-weight: 700; }
 .price-value { font-size: 36px; font-weight: 700; margin: 20px 0; }
-
 </style>
 </head>
 <body>
 
+    <!-- 📋 NAVBAR SIMPLIFICADO -->
     <nav class="navbar">
         <a href="#" class="nav-brand" onclick="switchTab('inicio')">
             <img src="logo.png" alt="RangelShop">
@@ -373,123 +360,111 @@ canvas {
         </a>
         <ul class="nav-menu">
             <li><a id="btn-inicio" class="nav-link active" onclick="switchTab('inicio')">Inicio</a></li>
-            <li><a id="btn-disenos" class="nav-link" onclick="switchTab('disenos')">Diseños</a></li>
-            <li><a id="btn-extractor" class="nav-link" onclick="switchTab('extractor')">Extractor de Color</a></li>
             <li><a id="btn-escalador" class="nav-link" onclick="switchTab('escalador')">Escalador AI</a></li>
             <li><a id="btn-membresias" class="nav-link" onclick="switchTab('membresias')">Membresías</a></li>
         </ul>
     </nav>
 
+    <!-- 🏢 CONTAINER PRINCIPAL -->
     <div class="app-container">
         
+        <!-- 🏠 SECCIÓN 1: INICIO (CONTIENE LA CARPETA Y LOS DOS CUADROS ESTRATÉGICOS) -->
         <div id="tab-inicio" class="tab-content full-page-view active-tab">
             <div style="width:100%;">
                 <div class="hero-banner">
                     <h1>Bienvenido a RangelShop Pro</h1>
                     <p>La plataforma definitiva para profesionales del DTF. Procesa tus imágenes con velocidad cuántica, adquiere plantillas exclusivas y escala tus producciones.</p>
-                    <button class="btn-primary" style="width:auto; padding: 12px 24px;" onclick="switchTab('extractor')">Comenzar a Limpiar Imagen</button>
-                </div>
-                <h3 class="section-title">Herramientas Destacadas</h3>
-                <div class="content-grid-two">
-                    <div class="pro-card" onclick="switchTab('extractor')" style="cursor:pointer;">
-                        <div class="card-img-placeholder">🎨</div>
-                        <div class="card-body">
-                            <div class="card-tag">Herramienta Activa</div>
-                            <h4 class="card-title">Extractor de Color</h4>
-                            <p class="card-desc">Elimina o separa fondos de color específicos optimizados para impresión DTF.</p>
-                        </div>
-                    </div>
-                    <div class="pro-card" onclick="switchTab('escalador')" style="cursor:pointer;">
-                        <div class="card-img-placeholder">🚀</div>
-                        <div class="card-body">
-                            <div class="card-tag">Próximamente</div>
-                            <h4 class="card-title">Escalador AI Super-Resolution</h4>
-                            <p class="card-desc">Sube la resolución de imágenes borrosas a 300 DPI sin perder definición.</p>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div id="tab-disenos" class="tab-content full-page-view">
-            <div style="width:100%;">
-                <div class="hero-banner" style="padding:40px;">
-                    <h2>Catálogo de Diseños DTF Premium</h2>
-                    <p>Explora y descarga paquetes vectoriales y PNGs en alta resolución listos para estampar.</p>
+                    <button class="btn-primary" style="width:auto; padding: 12px 24px;" onclick="openToolsFolder()">Comenzar a Limpiar Imagen</button>
                 </div>
                 
-                <h3 class="section-title">Herramientas</h3>
+                <h3 class="section-title">Servicios Destacados</h3>
                 
+                <!-- Rejilla de Dos Cuadros Principales -->
                 <div class="content-grid-two">
+                    <!-- Cuadro Mega Pack -->
                     <div class="pro-card" style="cursor: pointer;" onclick="switchTab('membresias')">
                         <div class="card-img-placeholder">📦</div>
                         <div class="card-body">
                             <div class="card-tag" style="color: var(--accent-purple);">Colección Completa</div>
                             <h4 class="card-title">Mega Pack</h4>
-                            <p class="card-desc">Adquiere paquetes completos de diseños exclusivos en alta definición, optimizados y listos para enviar a la cola de impresión DTF.</p>
+                            <p class="card-desc">Compra paquetes completos de diseños vectoriales listos para estampar sin configuraciones extra.</p>
                         </div>
                     </div>
                     
-                    <div class="pro-card" style="cursor: pointer;" onclick="switchTab('extractor')">
+                    <!-- Cuadro Herramientas DTF (Actúa como Carpeta) -->
+                    <div class="pro-card" style="cursor: pointer; border-color: rgba(59, 130, 246, 0.4);" onclick="openToolsFolder()">
                         <div class="card-img-placeholder">🛠️</div>
                         <div class="card-body">
-                            <div class="card-tag">Panel de Utilidades</div>
+                            <div class="card-tag">Carpeta de Aplicaciones</div>
                             <h4 class="card-title">Herramientas DTF</h4>
-                            <p class="card-desc">Ingresa a nuestro set de utilidades avanzadas para talleres. Limpia canales, elimina fondos cromáticos y prepara tus archivos Pro.</p>
+                            <p class="card-desc">Haz clic para abrir el catálogo interno de herramientas. Quita fondos, limpia canales cromáticos y más.</p>
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
 
-        <div id="tab-extractor" class="tab-content">
-            <div class="sidebar">
-                <div class="sidebar-content">
-                    <div class="control-group">
-                        <h3 class="section-title">Archivo Original</h3>
-                        <div class="file-upload-wrapper">
-                            <span class="upload-icon">📁</span>
-                            <p class="upload-text">Arrastra o sube tu diseño</p>
-                            <p class="upload-sub">Formatos PNG, JPG certificados</p>
-                            <input type="file" id="imageInput">
-                        </div>
+                <!-- 📂 CARPETA CONTENEDORA DE HERRAMIENTAS (DESPLEGABLE INTERNO) -->
+                <div id="toolsFolder" class="folder-container">
+                    <div class="folder-header">
+                        <div class="folder-title">📁 Carpeta: Herramientas del Sistema</div>
+                        <button class="close-folder-btn" onclick="closeToolsFolder()">Cerrar Carpeta ↑</button>
                     </div>
-                    <div class="control-group">
-                        <h3 class="section-title">Muestra de Color</h3>
-                        <div class="color-picker-row">
-                            <p>Tono Seleccionado</p>
-                            <div id="colorBox"></div>
-                        </div>
+
+                    <!-- Pestañas internas de la carpeta (Para meter más herramientas en el futuro) -->
+                    <div class="folder-tabs">
+                        <button class="folder-tab-btn active">Quitar Fondo (Extractor)</button>
+                        <button class="folder-tab-btn" disabled style="opacity:0.4; cursor:not-allowed;">+ Próxima Herramienta</button>
                     </div>
-                    <div class="control-group">
-                        <h3 class="section-title">Parámetros</h3>
-                        <div class="slider-container">
-                            <div class="slider-header">
-                                <label for="tolerance">Tolerancia de Fusión</label>
-                                <span id="tolValue">120</span>
+
+                    <!-- Módulo Técnico: Extractor de Color original -->
+                    <div class="tools-workspace">
+                        <div class="sidebar">
+                            <div class="sidebar-content">
+                                <div class="control-group">
+                                    <h3 class="section-title">Archivo Original</h3>
+                                    <div class="file-upload-wrapper">
+                                        <span class="upload-icon">📁</span>
+                                        <p class="upload-text">Sube tu diseño</p>
+                                        <input type="file" id="imageInput">
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <h3 class="section-title">Muestra de Color</h3>
+                                    <div class="color-picker-row">
+                                        <p>Tono Seleccionado</p>
+                                        <div id="colorBox"></div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <h3 class="section-title">Parámetros</h3>
+                                    <div class="slider-header">
+                                        <label for="tolerance">Tolerancia</label>
+                                        <span id="tolValue">120</span>
+                                    </div>
+                                    <input type="range" id="tolerance" min="0" max="300" value="120">
+                                </div>
+                                <div class="control-group" style="margin-top: 30px;">
+                                    <button type="button" id="downloadBtn">Descargar PNG Limpio</button>
+                                </div>
                             </div>
-                            <input type="range" id="tolerance" min="0" max="300" value="120">
+                            <div class="sidebar-footer">
+                                <button type="button" class="btn-primary" onclick="removeColor()">Separar / Eliminar Color</button>
+                            </div>
+                        </div>
+                        <div class="main-view">
+                            <canvas id="canvas"></canvas>
                         </div>
                     </div>
-                    <div class="control-group" style="margin-top: 40px;">
-                        <h3 class="section-title">Exportación</h3>
-                        <button type="button" id="downloadBtn">Descargar PNG Limpio</button>
-                    </div>
-                </div>
-                <div class="sidebar-footer">
-                    <button type="button" class="btn-primary" onclick="removeColor()">Separar / Eliminar Color</button>
-                </div>
-            </div>
-            <div class="main-view">
-                <canvas id="canvas"></canvas>
+                </div> <!-- Fin de Carpeta -->
+
             </div>
         </div>
 
+        <!-- 🚀 SECCIÓN 2: ESCALADOR AI -->
         <div id="tab-escalador" class="tab-content full-page-view">
             <div style="width:100%; text-align: center; padding-top: 60px;">
                 <span style="font-size: 64px;">🚀</span>
                 <h2 style="font-size: 28px; margin-top: 20px;">Escalador de Imágenes AI Intel-Sense</h2>
-                <p style="color: var(--text-muted); max-width: 500px; margin: 10px auto 30px auto;">Esta utilidad aumentará el tamaño de tus archivos de baja calidad x2 y x4 veces usando redes neuronales para evitar el pixelado en impresiones gigantes.</p>
+                <p style="color: var(--text-muted); max-width: 500px; margin: 10px auto 30px auto;">Aumenta el tamaño de tus archivos x2 y x4 veces usando redes neuronales para evitar el pixelado.</p>
                 <div style="max-width:400px; margin:0 auto;" class="file-upload-wrapper">
                     <span class="upload-icon">⚡</span>
                     <p class="upload-text">Sube archivo para re-escalar</p>
@@ -499,6 +474,7 @@ canvas {
             </div>
         </div>
 
+        <!-- 💳 SECCIÓN 3: MEMBRESÍAS -->
         <div id="tab-membresias" class="tab-content full-page-view">
             <div style="width:100%;">
                 <div style="text-align:center; margin-bottom: 40px;">
@@ -509,13 +485,13 @@ canvas {
                     <div class="price-card">
                         <h3>Plan Gratis</h3>
                         <div class="price-value">$0 <span style="font-size:14px; color:var(--text-muted)">/ mes</span></div>
-                        <p style="color:var(--text-muted); font-size:13px; text-align:left; line-height:20px;">• Remoción de fondos ilimitada<br>• Servidor compartido (con retraso de arranque)<br>• Descarga estándar</p>
+                        <p style="color:var(--text-muted); font-size:13px; text-align:left; line-height:20px;">• Remoción de fondos ilimitada<br>• Servidor compartido<br>• Descarga estándar</p>
                     </div>
                     <div class="price-card featured">
                         <div class="price-badge">RECOMENDADO</div>
                         <h3>Membresía VIP Anual</h3>
                         <div class="price-value">$299 <span style="font-size:14px; color:var(--text-muted)">MXN</span></div>
-                        <p style="color:var(--text-muted); font-size:13px; text-align:left; line-height:20px;">• Servidor dedicado (Procesamiento ultra veloz)<br>• Descarga de todos los packs de diseños<br>• Acceso exclusivo al Escalador AI de 300 DPI<br>• Soporte premium</p>
+                        <p style="color:var(--text-muted); font-size:13px; text-align:left; line-height:20px;">• Servidor dedicado Ultra veloz<br>• Descarga de todos los packs de diseños<br>• Acceso al Escalador AI de 300 DPI<br>• Soporte premium</p>
                     </div>
                 </div>
             </div>
@@ -524,7 +500,19 @@ canvas {
     </div>
 
 <script>
-// 🧠 LÓGICA DE NAVEGACIÓN ENTRE SECCIONES
+// 📂 GESTIÓN DE LA CARPETA DE HERRAMIENTAS INTERNA
+function openToolsFolder() {
+    const folder = document.getElementById('toolsFolder');
+    folder.style.display = 'block';
+    // Hace scroll suave automático hacia la zona de herramientas abiertos
+    folder.scrollIntoView({ behavior: 'smooth' });
+}
+
+function closeToolsFolder() {
+    document.getElementById('toolsFolder').style.style.display = 'none';
+}
+
+// 🧠 NAVEGACIÓN GENERAL DEL NAVBAR
 function switchTab(tabId) {
     const contents = document.querySelectorAll('.tab-content');
     contents.forEach(content => content.classList.remove('active-tab'));
@@ -536,10 +524,15 @@ function switchTab(tabId) {
     
     const activeBtn = document.getElementById(`btn-${tabId}`);
     if(activeBtn) activeBtn.classList.add('active');
+
+    // Al cambiar de sección, cerramos la carpeta automáticamente para mantener el orden
+    if(tabId !== 'inicio') {
+        document.getElementById('toolsFolder').style.display = 'none';
+    }
 }
 
 
-// 🎨 LÓGICA ORIGINAL DEL EXTRACTOR DE FONDOS
+// 🎨 LÓGICA ORIGINAL DEL EXTRACTOR DE FONDOS CONNECTADO A PYTHON
 let selectedColor = [0,0,0];
 let resultURL = "";
 
@@ -585,7 +578,7 @@ async function removeColor(){
     formData.append("b", selectedColor[2]);
     formData.append("tolerance", document.getElementById("tolerance").value);
 
-    const mainBtn = document.querySelector(".btn-primary");
+    const mainBtn = document.querySelector(".sidebar-footer .btn-primary");
     mainBtn.innerText = "Procesando en Render...";
     mainBtn.style.opacity = "0.7";
 
