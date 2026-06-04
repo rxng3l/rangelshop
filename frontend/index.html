@@ -377,7 +377,6 @@ canvas {
     </div>
 
 <script>
-/* ⚙️ TU LÓGICA ORIGINAL QUEDA TOTALMENTE INTACTA Y FUNCIONANDO */
 let selectedColor = [0,0,0];
 let resultURL = "";
 
@@ -424,7 +423,8 @@ async function removeColor(){
     formData.append("b", selectedColor[2]);
     formData.append("tolerance", document.getElementById("tolerance").value);
 
-    const res = await fetch("http://127.0.0.1:5000/remove-background", {
+    // 🌟 AQUÍ SE AGREGÓ LA URL DE TU BACKEND EN RENDER 🌟
+    const res = await fetch("https://rangelshop-backend.onrender.com/remove_color", {
         method:"POST",
         body:formData
     });
