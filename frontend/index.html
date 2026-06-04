@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>RangelShop — Plataforma DTF Pro</title>
 
-<!-- Tipografías de Google Fonts -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
@@ -99,6 +98,21 @@ body {
     flex-grow: 1;
     display: flex;
     height: calc(100vh - 70px);
+}
+
+@media (max-width: 900px) {
+    .app-container {
+        flex-direction: column;
+        height: auto;
+    }
+    .sidebar {
+        width: 100% !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .main-view {
+        height: 60vh;
+    }
 }
 
 /* SISTEMA DE OCULTADO DE SECCIONES */
@@ -267,6 +281,7 @@ canvas {
                       linear-gradient(45deg, transparent 75%, #18181b 75%), 
                       linear-gradient(-45deg, transparent 75%, #18181b 75%);
     background-size: 20px 20px;
+    background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
 }
 
 /* 📱 ESTILOS PARA LAS NUEVAS VISTAS COMPLETAS (INICIO, DISEÑOS, ETC.) */
@@ -289,11 +304,12 @@ canvas {
 .hero-banner h1 { font-size: 38px; margin: 0 0 16px 0; font-weight: 700; }
 .hero-banner p { color: var(--text-muted); font-size: 16px; margin: 0 0 24px 0; max-width: 600px; }
 
-/* REJILLA DE TARJETAS (ESTILO LIMITED "LOS MAS VENDIDOS") */
-.content-grid {
+/* REJILLA DE TARJETAS (ESTILO DOS COLUMNAS REQUERIDO) */
+.content-grid-two {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-    gap: 24px;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 30px;
+    margin-top: 10px;
 }
 
 .pro-card {
@@ -315,14 +331,14 @@ canvas {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 32px;
+    font-size: 40px;
     color: #3a3a3c;
 }
 
-.card-body { padding: 20px; }
-.card-tag { font-size: 10px; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; margin-bottom: 6px; }
-.card-title { font-size: 16px; font-weight: 600; margin: 0 0 8px 0; }
-.card-desc { font-size: 13px; color: var(--text-muted); margin: 0; }
+.card-body { padding: 24px; }
+.card-tag { font-size: 10px; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+.card-title { font-size: 18px; font-weight: 600; margin: 0 0 10px 0; }
+.card-desc { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 20px; }
 
 /* DISEÑO DE LA VISTA DE MEMBRESÍAS */
 .pricing-container {
@@ -350,7 +366,6 @@ canvas {
 </head>
 <body>
 
-    <!-- 📋 NAVBAR DE MARCA GLOBAL -->
     <nav class="navbar">
         <a href="#" class="nav-brand" onclick="switchTab('inicio')">
             <img src="logo.png" alt="RangelShop">
@@ -365,10 +380,8 @@ canvas {
         </ul>
     </nav>
 
-    <!-- 🏢 CONTENEDOR DE LA APLICACIÓN -->
     <div class="app-container">
         
-        <!-- 🏠 SECCIÓN 1: INICIO -->
         <div id="tab-inicio" class="tab-content full-page-view active-tab">
             <div style="width:100%;">
                 <div class="hero-banner">
@@ -377,7 +390,7 @@ canvas {
                     <button class="btn-primary" style="width:auto; padding: 12px 24px;" onclick="switchTab('extractor')">Comenzar a Limpiar Imagen</button>
                 </div>
                 <h3 class="section-title">Herramientas Destacadas</h3>
-                <div class="content-grid">
+                <div class="content-grid-two">
                     <div class="pro-card" onclick="switchTab('extractor')" style="cursor:pointer;">
                         <div class="card-img-placeholder">🎨</div>
                         <div class="card-body">
@@ -398,23 +411,37 @@ canvas {
             </div>
         </div>
 
-        <!-- 📂 SECCIÓN 2: DISEÑOS -->
         <div id="tab-disenos" class="tab-content full-page-view">
             <div style="width:100%;">
                 <div class="hero-banner" style="padding:40px;">
                     <h2>Catálogo de Diseños DTF Premium</h2>
                     <p>Explora y descarga paquetes vectoriales y PNGs en alta resolución listos para estampar.</p>
                 </div>
-                <h3 class="section-title">Colecciones Disponibles</h3>
-                <div class="content-grid">
-                    <div class="pro-card"><div class="card-img-placeholder">🏯</div><div class="card-body"><div class="card-tag">Pack Anime</div><h4 class="card-title">Anime Vector Pack V1</h4><p class="card-desc">50 diseños con canales limpios preparados para fondo negro.</p></div></div>
-                    <div class="pro-card"><div class="card-img-placeholder">🛹</div><div class="card-body"><div class="card-tag">Streetwear</div><h4 class="card-title">Cyberpunk Urban Style</h4><p class="card-desc">Gráficos urbanos de alta tendencia con tipografías agresivas.</p></div></div>
-                    <div class="pro-card"><div class="card-img-placeholder">💀</div><div class="card-body"><div class="card-tag">Vintage</div><h4 class="card-title">Biker & Skull Vectors</h4><p class="card-desc">Ilustraciones detalladas ideales para formato de impresión grande.</p></div></div>
+                
+                <h3 class="section-title">Herramientas</h3>
+                
+                <div class="content-grid-two">
+                    <div class="pro-card" style="cursor: pointer;" onclick="switchTab('membresias')">
+                        <div class="card-img-placeholder">📦</div>
+                        <div class="card-body">
+                            <div class="card-tag" style="color: var(--accent-purple);">Colección Completa</div>
+                            <h4 class="card-title">Mega Pack</h4>
+                            <p class="card-desc">Adquiere paquetes completos de diseños exclusivos en alta definición, optimizados y listos para enviar a la cola de impresión DTF.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pro-card" style="cursor: pointer;" onclick="switchTab('extractor')">
+                        <div class="card-img-placeholder">🛠️</div>
+                        <div class="card-body">
+                            <div class="card-tag">Panel de Utilidades</div>
+                            <h4 class="card-title">Herramientas DTF</h4>
+                            <p class="card-desc">Ingresa a nuestro set de utilidades avanzadas para talleres. Limpia canales, elimina fondos cromáticos y prepara tus archivos Pro.</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <!-- 🎨 SECCIÓN 3: EXTRACTOR DE COLOR (TU HERRAMIENTA ORIGINAL) -->
         <div id="tab-extractor" class="tab-content">
             <div class="sidebar">
                 <div class="sidebar-content">
@@ -458,7 +485,6 @@ canvas {
             </div>
         </div>
 
-        <!-- 🚀 SECCIÓN 4: ESCALADOR AI -->
         <div id="tab-escalador" class="tab-content full-page-view">
             <div style="width:100%; text-align: center; padding-top: 60px;">
                 <span style="font-size: 64px;">🚀</span>
@@ -473,7 +499,6 @@ canvas {
             </div>
         </div>
 
-        <!-- 💳 SECCIÓN 5: MEMBRESÍAS -->
         <div id="tab-membresias" class="tab-content full-page-view">
             <div style="width:100%;">
                 <div style="text-align:center; margin-bottom: 40px;">
@@ -499,26 +524,22 @@ canvas {
     </div>
 
 <script>
-// 🧠 LÓGICA DE NAVEGACIÓN ENTRE SECCIONES (SISTEMA DE PESTAÑAS)
+// 🧠 LÓGICA DE NAVEGACIÓN ENTRE SECCIONES
 function switchTab(tabId) {
-    // Quitar la clase active de todos los contenidos
     const contents = document.querySelectorAll('.tab-content');
     contents.forEach(content => content.classList.remove('active-tab'));
     
-    // Quitar la clase active de todos los links del menú
     const links = document.querySelectorAll('.nav-link');
-    links.forEach(link => link.classList.remove('active-tab'));
+    links.forEach(link => link.classList.remove('active'));
     
-    // Activar el contenido seleccionado
     document.getElementById(`tab-${tabId}`).classList.add('active-tab');
     
-    // Activar el botón del menú seleccionado
     const activeBtn = document.getElementById(`btn-${tabId}`);
     if(activeBtn) activeBtn.classList.add('active');
 }
 
 
-// 🎨 LÓGICA ORIGINAL DEL EXTRACTOR DE FONDOS CONNECTADO A RENDER
+// 🎨 LÓGICA ORIGINAL DEL EXTRACTOR DE FONDOS
 let selectedColor = [0,0,0];
 let resultURL = "";
 
