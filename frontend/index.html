@@ -773,6 +773,15 @@ canvas {
                                     <input type="number" id="calcPricePerMeter" class="input-field" value="180" min="1" oninput="calculateDtfCost()">
                                     <span style="font-size:11px; color:var(--text-muted); display:block; margin-top:4px;">*Puedes ajustar el precio según tus tarifas.</span>
                                 </div>
+                                <div class="control-group">
+    <label for="calcDesigns">Cantidad de diseños por metro:</label>
+    <input type="number" id="calcDesigns" class="input-field" value="3" min="1" oninput="calculateDtfCost()">
+</div>
+
+<div class="control-group">
+    <label for="calcShirtPrice">Costo de playera ($):</label>
+    <input type="number" id="calcShirtPrice" class="input-field" value="80" min="0" oninput="calculateDtfCost()">
+</div>
 
                                 <div class="control-group" style="margin-top: 30px;">
                                     <button type="button" class="btn-green" onclick="calculateDtfCost()">Recalcular Costo</button>
