@@ -1057,6 +1057,7 @@ function calculateDtfCost() {
 
     const designs = parseInt(document.getElementById("calcDesigns").value) || 1;
     const shirtPrice = parseFloat(document.getElementById("calcShirtPrice").value) || 0;
+    const profit = parseFloat(document.getElementById("calcProfit").value) || 0;
 
     const area = width * height;
     document.getElementById("resArea").innerText = `${area.toLocaleString()} cm²`;
@@ -1077,10 +1078,9 @@ function calculateDtfCost() {
         `${metrosLineales.toFixed(2)} metros lineales`;
 
     const totalCost = metrosLineales * pricePerMeter;
-
     const costPerDesign = totalCost / designs;
-
     const finalCost = costPerDesign + shirtPrice;
+    const salePrice = finalCost + profit;
 
     document.getElementById("resTotal").innerText =
         `$${totalCost.toFixed(2)} MXN`;
@@ -1090,7 +1090,11 @@ function calculateDtfCost() {
 
     document.getElementById("resFinal").innerText =
         `$${finalCost.toFixed(2)} MXN`;
+
+    document.getElementById("resSalePrice").innerText =
+        `$${salePrice.toFixed(2)} MXN`;
 }
+
 </script>
 
 </body>
