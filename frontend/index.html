@@ -1,68 +1,103 @@
-<div id="tool-view-calculadora" class="folder-subview tools-workspace">
-    <div class="sidebar">
-        <div class="sidebar-content">
-            <h3 style="font-size: 14px; margin-bottom: 20px;">Configuración de Pliego (58x100 cm)</h3>
-            
-            <div class="control-group">
-                <label>Nombre del Diseño:</label>
-                <input type="text" id="designName" class="input-field" placeholder="Ej. Logo Frente">
-            </div>
-            <div style="display: flex; gap: 10px;">
-                <div class="control-group" style="flex:1;">
-                    <label>Ancho (cm):</label>
-                    <input type="number" id="itemWidth" class="input-field" value="10">
-                </div>
-                <div class="control-group" style="flex:1;">
-                    <label>Alto (cm):</label>
-                    <input type="number" id="itemHeight" class="input-field" value="10">
-                </div>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>RangelShop Pro — Panel de Control</title>
+    <style>
+        :root { --bg-dark: #09090b; --bg-card: #141416; --border-color: #232326; --text-white: #f4f4f5; --accent-blue: #3b82f6; --accent-green: #10b981; }
+        body { margin: 0; font-family: sans-serif; background: var(--bg-dark); color: var(--text-white); }
+        .folder-container { padding: 20px; background: #101012; border: 1px solid var(--border-color); border-radius: 16px; margin: 20px; }
+        .folder-tabs { display: flex; gap: 10px; margin-bottom: 20px; }
+        .folder-tab-btn { background: #18181b; color: #a1a1aa; border: 1px solid var(--border-color); padding: 10px 15px; border-radius: 8px; cursor: pointer; }
+        .folder-tab-btn.active { background: var(--accent-blue); color: white; }
+        .folder-subview { display: none; background: var(--bg-dark); border: 1px solid var(--border-color); padding: 20px; border-radius: 12px; }
+        .folder-subview.active-subview { display: flex; gap: 20px; }
+        .sidebar { width: 300px; }
+        .input-field { width: 100%; background: #1c1c1e; color: white; border: 1px solid var(--border-color); padding: 10px; border-radius: 8px; margin-bottom: 10px; }
+        .btn-primary { width: 100%; background: var(--accent-blue); color: white; border: none; padding: 12px; border-radius: 8px; cursor: pointer; }
+        .calc-row { display: flex; justify-content: space-between; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+<div class="folder-container">
+    <div class="folder-tabs">
+        <button id="folder-tab-calculadora" class="folder-tab-btn active" onclick="switchFolderTool('calculadora')">Calculadora Simple</button>
+        <button id="folder-tab-acomodador" class="folder-tab-btn" onclick="switchFolderTool('acomodador')">Acomodador de Pliegos (58x100)</button>
+    </div>
+
+    <div id="tool-view-calculadora" class="folder-subview active-subview">
+        <div class="sidebar">
+            <label>Ancho (cm):</label> <input type="number" id="calcWidth" class="input-field" value="30">
+            <label>Alto (cm):</label> <input type="number" id="calcHeight" class="input-field" value="40">
+            <button class="btn-primary" onclick="calculateDtf()">Calcular</button>
+        </div>
+        <div id="resultSimple">Total: $0.00</div>
+    </div>
+
+    <div id="tool-view-acomodador" class="folder-subview">
+        <div class="sidebar">
+            <h3>Acomodador (58x100 cm)</h3>
+            <input type="text" id="designName" class="input-field" placeholder="Nombre Diseño">
+            <div style="display: flex; gap: 5px;">
+                <input type="number" id="itemWidth" class="input-field" placeholder="Ancho">
+                <input type="number" id="itemHeight" class="input-field" placeholder="Alto">
             </div>
             <button class="btn-primary" onclick="addToSheet()">Añadir al Pliego +</button>
-        </div>
-        <div class="sidebar-footer">
-            <div class="calc-row"><span>Total diseños:</span> <span id="totalItems">0</span></div>
-            <div class="calc-row" style="font-size: 18px; color: var(--accent-green);"><span>Total:</span> <span id="grandTotal">$0.00</span></div>
-        </div>
-    </div>
-    
-    <div class="main-view" style="flex-direction: column;">
-        <div id="sheetVisual" style="width: 290px; height: 500px; border: 2px dashed #444; background: #000; position: relative;">
+            <div style="margin-top:20px;">
+                <div class="calc-row"><span>Total diseños:</span> <span id="totalItems">0</span></div>
+                <div class="calc-row"><span>Costo Playera:</span> <input type="number" id="shirtCost" class="input-field" style="width:60px;" value="80"></div>
+                <div class="calc-row" style="font-size: 20px; color: var(--accent-green);"><span>Total:</span> <span id="grandTotal">$0.00</span></div>
             </div>
-        <p style="color: var(--text-muted); font-size: 12px; margin-top: 10px;">Simulador visual de pliego (58x100 cm)</p>
+        </div>
+        <div id="sheetVisual" style="width: 290px; height: 500px; border: 2px dashed #444; background: #000; position: relative;"></div>
     </div>
 </div>
 
 <script>
-let designs = [];
-const PRICE_PER_METER = 300; // Ajusta a tu precio
+    let designs = [];
+    const PRICE_PER_METER = 300;
 
-function addToSheet() {
-    const name = document.getElementById('designName').value || "Diseño";
-    const w = parseFloat(document.getElementById('itemWidth').value);
-    const h = parseFloat(document.getElementById('itemHeight').value);
-    
-    if(w > 58) return alert("El ancho supera los 58cm del pliego.");
-    
-    designs.push({name, w, h});
-    updateSheet();
-}
+    function switchFolderTool(toolId) {
+        document.querySelectorAll('.folder-subview').forEach(v => v.classList.remove('active-subview'));
+        document.querySelectorAll('.folder-tab-btn').forEach(b => b.classList.remove('active'));
+        document.getElementById(`tool-view-${toolId}`).classList.add('active-subview');
+        document.getElementById(`folder-tab-${toolId}`).classList.add('active');
+    }
 
-function updateSheet() {
-    const container = document.getElementById('sheetVisual');
-    container.innerHTML = '';
-    let totalArea = 0;
-    
-    designs.forEach(d => {
+    function addToSheet() {
+        const name = document.getElementById('designName').value || "Diseño";
+        const w = parseFloat(document.getElementById('itemWidth').value);
+        const h = parseFloat(document.getElementById('itemHeight').value);
+        const sCost = parseFloat(document.getElementById('shirtCost').value);
+        
+        if(w > 58) return alert("El diseño supera los 58cm.");
+        
+        designs.push({name, w, h});
+        
+        const container = document.getElementById('sheetVisual');
         const div = document.createElement('div');
-        div.style.cssText = `width:${(d.w/58)*100}%; height:${(d.h/100)*100}%; background:var(--accent-blue); position:absolute; border:1px solid #fff; font-size:8px; overflow:hidden;`;
-        div.innerText = d.name;
+        div.style.cssText = `width:${(w/58)*100}%; height:${(h/100)*100}%; background:var(--accent-blue); position:absolute; border:1px solid #fff; font-size:8px; overflow:hidden;`;
+        div.innerText = name;
         container.appendChild(div);
-        totalArea += (d.w * d.h);
-    });
-    
-    document.getElementById('totalItems').innerText = designs.length;
-    // Cálculo simplificado de costo basado en área total
-    const cost = (totalArea / (58*100)) * PRICE_PER_METER;
-    document.getElementById('grandTotal').innerText = `$${cost.toFixed(2)}`;
-}
+        
+        updateTotals(sCost);
+    }
+
+    function updateTotals(sCost) {
+        let totalArea = designs.reduce((acc, d) => acc + (d.w * d.h), 0);
+        document.getElementById('totalItems').innerText = designs.length;
+        const costFilm = (totalArea / (58*100)) * PRICE_PER_METER;
+        const totalFinal = costFilm + (designs.length * sCost);
+        document.getElementById('grandTotal').innerText = `$${totalFinal.toFixed(2)}`;
+    }
+
+    function calculateDtf() {
+        const w = parseFloat(document.getElementById('calcWidth').value);
+        const h = parseFloat(document.getElementById('calcHeight').value);
+        const total = (h/100) * PRICE_PER_METER;
+        document.getElementById('resultSimple').innerText = "Total: $" + total.toFixed(2);
+    }
 </script>
+</body>
+</html>
