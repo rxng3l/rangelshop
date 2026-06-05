@@ -17,189 +17,1052 @@
     --text-white: #f4f4f5;
     --text-muted: #a1a1aa;
     --accent-blue: #3b82f6;
+    --accent-hover: #2563eb;
     --accent-purple: #8b5cf6;
+    --accent-purple-hover: #7c3aed;
     --accent-green: #10b981;
+    --accent-green-hover: #059669;
 }
 
 body {
-    margin:0;
-    font-family: Inter;
-    background: var(--bg-dark);
+    margin: 0;
+    padding: 0;
+    font-family: 'Inter', sans-serif;
+    background-color: var(--bg-dark);
+    color: var(--text-white);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* 📋 BARRA DE NAVEGACIÓN SUPERIOR (MARCA CENTRADA) */
+.navbar {
+    background-color: rgba(9, 9, 11, 0.9);
+    backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border-color);
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    height: 70px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 40px;
+    box-sizing: border-box;
+    z-index: 100;
+}
+
+.nav-spacer {
+    flex: 1;
+    display: flex;
+}
+
+.nav-brand {
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: var(--text-white);
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    cursor: pointer;
+}
+
+.nav-brand img {
+    height: 42px;
+    width: auto;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
+.nav-brand span {
+    margin-left: 12px;
+    font-size: 20px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+}
+
+.nav-menu-wrapper {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}
+
+.nav-menu {
+    display: flex;
+    gap: 28px;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-link {
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    cursor: pointer;
+    transition: color 0.2s;
+}
+
+.nav-link:hover, .nav-link.active {
     color: var(--text-white);
 }
 
-/* NAV */
-.navbar{
-    height:70px;
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    padding:0 30px;
-    border-bottom:1px solid var(--border-color);
+/* 🏢 CONTENEDOR PRINCIPAL */
+.app-container {
+    margin-top: 70px;
+    flex-grow: 1;
+    display: flex;
+    height: calc(100vh - 70px);
 }
 
-.nav-brand{
-    display:flex;
-    gap:10px;
-    align-items:center;
+@media (max-width: 900px) {
+    .app-container {
+        flex-direction: column;
+        height: auto;
+    }
+    .navbar {
+        flex-direction: column;
+        height: auto;
+        padding: 15px 20px;
+        gap: 15px;
+    }
+    .nav-spacer { display: none; }
+    .nav-brand {
+        position: relative;
+        left: auto;
+        transform: none;
+    }
+    .nav-menu-wrapper {
+        justify-content: center;
+        width: 100%;
+    }
+    .sidebar {
+        width: 100% !important;
+        border-right: none !important;
+        border-bottom: 1px solid var(--border-color);
+    }
+    .tools-workspace {
+        flex-direction: column !important;
+        height: auto !important;
+    }
+    .main-view {
+        height: 40vh;
+        min-height: 350px;
+    }
+    .hero-banner {
+        flex-direction: column !important;
+        text-align: center !important;
+        height: auto !important;
+        padding: 40px 30px !important;
+    }
+    .hero-text-content {
+        max-width: 100% !important;
+    }
+    .hero-logo-container-right {
+        position: relative !important;
+        right: auto !important;
+        top: auto !important;
+        transform: none !important;
+        width: 180px !important;
+        height: 180px !important;
+        margin: 30px auto 0 auto !important;
+    }
 }
 
-/* LAYOUT */
-.app-container{margin-top:70px}
-
-/* CALCULADORA */
-.tools-workspace{display:flex;height:650px}
-
-.sidebar{
-    width:340px;
-    background:var(--bg-card);
-    padding:20px;
+.tab-content {
+    display: none;
+    width: 100%;
+    height: 100%;
 }
 
-.main-view{
-    flex:1;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+.tab-content.active-tab {
+    display: flex;
 }
 
-.calc-results-box{
-    background:var(--bg-card);
-    padding:30px;
-    border-radius:12px;
-    width:420px;
+.full-page-view {
+    width: 100%;
+    padding: 40px;
+    overflow-y: auto;
+    box-sizing: border-box;
 }
 
-.calc-row{
-    display:flex;
-    justify-content:space-between;
-    margin:10px 0;
+/* 🎯 BANNER CON LOGO EQUILIBRADO */
+.hero-banner {
+    position: relative;
+    background: linear-gradient(90deg, #131316 0%, #0c0c0e 100%);
+    border: 1px solid var(--border-color);
+    border-radius: 20px;
+    padding: 60px 80px;
+    margin-bottom: 40px;
+    display: flex;
+    align-items: center;
+    min-height: 260px; 
+    box-sizing: border-box;
 }
 
-.calc-total{
-    color:var(--accent-green);
-    font-size:22px;
+.hero-text-content {
+    max-width: 60%;
+    z-index: 2;
 }
 
-input{
-    width:100%;
-    padding:10px;
-    margin:5px 0 15px;
+.hero-banner h1 { 
+    font-size: 42px; 
+    margin: 0 0 16px 0; 
+    font-weight: 700; 
+    letter-spacing: -0.5px;
 }
 
-/* BUTTON */
-button{
-    width:100%;
-    padding:12px;
-    background:var(--accent-blue);
-    border:none;
-    color:white;
-    cursor:pointer;
+.hero-banner p { 
+    color: var(--text-muted); 
+    font-size: 16px; 
+    margin: 0; 
+    line-height: 26px;
 }
+
+.hero-logo-container-right {
+    position: absolute;
+    right: 80px;
+    top: 50%;
+    transform: translateY(-56%) translateX(-10px); 
+    width: 280px;  
+    height: 280px; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+}
+
+.hero-logo-container-right img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    filter: drop-shadow(0px 15px 35px rgba(0, 0, 0, 0.8));
+}
+
+/* SECCIÓN INFERIOR */
+.content-grid-two {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+    gap: 30px;
+    margin-bottom: 40px;
+}
+
+.pro-card {
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.2s, border-color 0.2s;
+}
+
+.pro-card:hover {
+    transform: translateY(-4px);
+    border-color: #3e3e42;
+}
+
+.card-img-placeholder {
+    height: 180px;
+    background: #1c1c1e;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 40px;
+    color: #3a3a3c;
+}
+
+.card-body { padding: 24px; }
+.card-tag { font-size: 10px; font-weight: 700; color: var(--accent-blue); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.5px; }
+.card-title { font-size: 18px; font-weight: 600; margin: 0 0 10px 0; }
+.card-desc { font-size: 14px; color: var(--text-muted); margin: 0; line-height: 20px; }
+
+/* 📁 CONTENEDOR CARPETA DE HERRAMIENTAS */
+.folder-container {
+    background: #101012;
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    padding: 24px;
+    margin-top: 20px;
+    display: none;
+}
+
+.folder-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--border-color);
+    padding-bottom: 14px;
+    margin-bottom: 24px;
+}
+
+.folder-title {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--text-white);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.close-folder-btn {
+    background: #27272a;
+    border: none;
+    color: var(--text-white);
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+}
+.close-folder-btn:hover { background: #3f3f46; }
+
+.folder-tabs {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+}
+
+.folder-tab-btn {
+    background: #18181b;
+    border: 1px solid var(--border-color);
+    color: var(--text-muted);
+    padding: 10px 16px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.folder-tab-btn.active {
+    background: var(--accent-blue);
+    color: white;
+    border-color: var(--accent-blue);
+}
+
+#folder-tab-escalador.active {
+    background: var(--accent-purple);
+    border-color: var(--accent-purple);
+}
+
+#folder-tab-calculadora.active {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
+}
+
+/* SUB-VISTAS INTERNAS */
+.folder-subview {
+    display: none;
+}
+.folder-subview.active-subview {
+    display: flex;
+}
+
+/* ÁREAS DE TRABAJO */
+.tools-workspace {
+    background: var(--bg-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    overflow: hidden;
+    height: 650px;
+    width: 100%;
+}
+
+/* 🗂️ SIDEBAR */
+.sidebar {
+    width: 340px;
+    background-color: var(--bg-card);
+    border-right: 1px solid var(--border-color);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-shrink: 0;
+}
+
+.sidebar-content {
+    padding: 20px;
+    overflow-y: auto;
+    flex-grow: 1;
+}
+
+.sidebar-logo-container {
+    text-align: center;
+    padding: 10px 0 25px 0;
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
+.sidebar-logo-container img {
+    max-width: 140px;
+    height: auto;
+    object-fit: contain;
+}
+
+.control-group { margin-bottom: 20px; }
+
+.control-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.input-field {
+    width: 100%;
+    background: #1c1c1e;
+    color: var(--text-white);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.input-field:focus {
+    border-color: var(--accent-green);
+}
+
+.file-upload-wrapper {
+    position: relative;
+    background: #1c1c1e;
+    border: 1px dashed #3a3a3c;
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+.file-upload-wrapper:hover {
+    background: #252529;
+}
+.file-upload-wrapper input[type="file"] { position: absolute; top: 0; left: 0; width: 100%; height: 100%; opacity: 0; cursor: pointer; }
+.upload-icon { font-size: 20px; margin-bottom: 6px; display: block; }
+.upload-text { font-size: 12px; font-weight: 600; margin: 0; }
+
+.color-picker-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #1c1c1e;
+    padding: 12px 14px;
+    border-radius: 10px;
+    border: 1px solid var(--border-color);
+}
+.color-picker-row p { margin: 0; font-size: 12px; }
+#colorBox { width: 28px; height: 28px; border-radius: 6px; border: 2px solid #2c2c2e; background: #000000; }
+
+.slider-header { display: flex; justify-content: space-between; margin-bottom: 6px; font-size: 12px; }
+#tolValue { color: var(--accent-blue); font-weight: 600; }
+
+input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; background: #2c2c2e; border-radius: 999px; }
+input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-blue); border: 2px solid var(--text-white); cursor: pointer; }
+
+.btn-primary {
+    width: 100%;
+    background: var(--accent-blue);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
+
+.btn-purple {
+    width: 100%;
+    background: var(--accent-purple);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-purple:hover { background: var(--accent-purple-hover); transform: translateY(-1px); }
+
+.btn-green {
+    width: 100%;
+    background: var(--accent-green);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-green:hover { background: var(--accent-green-hover); transform: translateY(-1px); }
+
+.btn-secondary-download { 
+    width: 100%; 
+    background: transparent; 
+    border: 1px solid var(--border-color); 
+    color: var(--text-white); 
+    padding: 14px; 
+    border-radius: 10px; 
+    font-size: 13px; 
+    font-weight: 600;
+    cursor: pointer; 
+    transition: all 0.2s;
+}
+.btn-secondary-download:hover { background: #1c1c1e; border-color: #3e3e42; }
+
+.sidebar-footer { 
+    padding: 16px 20px; 
+    border-top: 1px solid var(--border-color); 
+    background: var(--bg-card); 
+}
+
+/* CANVAS Y CONTENEDORES DE VISUALIZACIÓN */
+.main-view {
+    flex-grow: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    background: #09090b;
+    overflow: hidden;
+}
+
+.canvas-container {
+    max-width: 100%;
+    max-height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+canvas {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border-radius: 8px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+    background-image: linear-gradient(45deg, #18181b 25%, transparent 25%), 
+                      linear-gradient(-45deg, #18181b 25%, transparent 25%), 
+                      linear-gradient(45deg, transparent 75%, #18181b 75%), 
+                      linear-gradient(-45deg, transparent 75%, #18181b 75%);
+    background-size: 16px 16px;
+}
+
+.img-meta-info {
+    font-size: 11px;
+    color: var(--text-muted);
+    margin-top: 8px;
+    text-align: center;
+}
+
+/* TARJETA DE RESULTADOS CALCULADORA */
+.calc-results-box {
+    background: #141416;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #1f1f23;
+}
+.calc-row:last-child {
+    border-bottom: none;
+}
+.calc-label { color: var(--text-muted); font-size: 14px; }
+.calc-val { font-weight: 600; font-size: 15px; color: var(--text-white); }
+.calc-total { font-size: 24px; font-weight: 700; color: var(--accent-green); }
+
+/* PRECIOS */
+.pricing-container { display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
+.price-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; width: 300px; text-align: center; }
+.price-card.featured { border-color: var(--accent-purple); position: relative; }
+.price-badge { position: absolute; top: -12px; left: 50%; transform: translateX(-50%); background: var(--accent-purple); font-size: 11px; padding: 4px 12px; border-radius: 999px; font-weight: 700; }
+.price-value { font-size: 36px; font-weight: 700; margin: 20px 0; }
 </style>
 </head>
-
 <body>
 
-<div class="navbar">
-    <div class="nav-brand">
-        <img src="logo.png" width="40">
-        <b>RangelShop</b>
+    <nav class="navbar">
+        <div class="nav-spacer"></div>
+        
+        <a class="nav-brand" onclick="goToHomeAndTop()">
+            <img src="logo.png" alt="RangelShop">
+            <span>RangelShop</span>
+        </a>
+        
+        <div class="nav-menu-wrapper">
+            <ul class="nav-menu">
+                <li><a id="btn-inicio" class="nav-link active" onclick="switchTab('inicio')">Inicio</a></li>
+                <li><a id="btn-membresias" class="nav-link" onclick="switchTab('membresias')">Membresías</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="app-container">
+        
+        <div id="tab-inicio" class="tab-content full-page-view active-tab">
+            <div style="width:100%;">
+                
+                <div class="hero-banner">
+                    <div class="hero-text-content">
+                        <h1>Bienvenido a RangelShop Pro</h1>
+                        <p>La plataforma definitiva para profesionales del DTF. Procesa tus imágenes con velocidad cuántica, adquiere plantillas exclusivas y escala tus producciones.</p>
+                    </div>
+                    <div class="hero-logo-container-right">
+                        <img src="logo.png" alt="RangelShop Logo Banner">
+                    </div>
+                </div>
+                
+                <h3 class="section-title">Servicios Destacados</h3>
+                
+                <div class="content-grid-two">
+                    <div class="pro-card" style="cursor: pointer;" onclick="switchTab('membresias')">
+                        <div class="card-img-placeholder">📦</div>
+                        <div class="card-body">
+                            <div class="card-tag" style="color: var(--accent-purple);">Colección Completa</div>
+                            <h4 class="card-title">Mega Pack</h4>
+                            <p class="card-desc">Compra paquetes completos de diseños vectoriales listos para estampar sin configuraciones extra.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="pro-card" style="cursor: pointer; border-color: rgba(59, 130, 246, 0.4);" onclick="openToolsFolder()">
+                        <div class="card-img-placeholder">🛠️</div>
+                        <div class="card-body">
+                            <div class="card-tag">Carpeta de Aplicaciones</div>
+                            <h4 class="card-title">Herramientas DTF</h4>
+                            <p class="card-desc">Haz clic para abrir el catálogo interno de herramientas. Quita fondos, limpia canales cromáticos y más.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="toolsFolder" class="folder-container">
+                    <div class="folder-header">
+                        <div class="folder-title">📁 Carpeta: Herramientas del Sistema</div>
+                        <button class="close-folder-btn" onclick="closeToolsFolder()">Cerrar Carpeta ↑</button>
+                    </div>
+
+                    <div class="folder-tabs">
+                        <button id="folder-tab-extractor" class="folder-tab-btn active" onclick="switchFolderTool('extractor')">Quitar Fondo (Extractor)</button>
+                        <button id="folder-tab-escalador" class="folder-tab-btn" onclick="switchFolderTool('escalador')">Escalador AI Intel-Sense</button>
+                        <button id="folder-tab-calculadora" class="folder-tab-btn" onclick="switchFolderTool('calculadora')">Calculadora de Presupuestos DTF</button>
+                    </div>
+
+                    <div id="tool-view-extractor" class="folder-subview tools-workspace active-subview">
+                        <div class="sidebar">
+                            <div class="sidebar-content">
+                                <div class="sidebar-logo-container">
+                                    <img src="logo.png" alt="RangelShop Logo Pro">
+                                </div>
+                                <div class="control-group">
+                                    <div class="file-upload-wrapper">
+                                        <span class="upload-icon">📁</span>
+                                        <p class="upload-text">Sube tu diseño</p>
+                                        <input type="file" id="imageInput" accept="image/*">
+                                    </div>
+                                    <div id="extractor-filename" class="img-meta-info">Ningún archivo seleccionado</div>
+                                </div>
+                                <div class="control-group">
+                                    <h3 class="section-title" style="font-size: 13px; margin-bottom: 10px;">Muestra de Color</h3>
+                                    <div class="color-picker-row">
+                                        <p>Tono Seleccionado</p>
+                                        <div id="colorBox"></div>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <h3 class="section-title" style="font-size: 13px; margin-bottom: 10px;">Parámetros</h3>
+                                    <div class="slider-header">
+                                        <label for="tolerance">Tolerancia</label>
+                                        <span id="tolValue">120</span>
+                                    </div>
+                                    <input type="range" id="tolerance" min="0" max="300" value="120">
+                                </div>
+                                <div class="control-group" style="margin-top: 25px;">
+                                    <button type="button" class="btn-primary" onclick="removeColor()">Separar / Eliminar Color</button>
+                                </div>
+                            </div>
+                            <div class="sidebar-footer">
+                                <button type="button" id="downloadBtn" class="btn-secondary-download">Descargar PNG Limpio</button>
+                            </div>
+                        </div>
+                        <div class="main-view">
+                            <div class="canvas-container">
+                                <canvas id="canvas"></canvas>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tool-view-escalador" class="folder-subview tools-workspace">
+                        <div class="sidebar">
+                            <div class="sidebar-content">
+                                <div class="sidebar-logo-container">
+                                    <img src="logo.png" alt="RangelShop Logo Pro">
+                                </div>
+                                <div class="control-group">
+                                    <h3 class="section-title" style="font-size: 13px; margin-bottom: 10px;">Imagen de Origen</h3>
+                                    <div class="file-upload-wrapper">
+                                        <span class="upload-icon">⚡</span>
+                                        <p class="upload-text">Sube diseño para re-escalar</p>
+                                        <input type="file" id="scaleInput" accept="image/*">
+                                    </div>
+                                    <div id="scale-filename" class="img-meta-info">Ningún archivo seleccionado</div>
+                                </div>
+                                <div class="control-group">
+                                    <label style="font-size: 12px; color: var(--text-muted); font-weight: 500;">Multiplicador de resolución:</label>
+                                    <select id="scaleFactorSelect" style="width:100%; background:#1c1c1e; color:var(--text-white); border:1px solid var(--border-color); padding:12px; border-radius:8px; margin-top:8px; font-family: inherit; font-size:13px; outline:none;">
+                                        <option value="2">Aumentar x2 (Doble tamaño)</option>
+                                        <option value="4">Aumentar x4 (Filtro Ultra HD 300 DPI)</option>
+                                    </select>
+                                </div>
+                                <div class="control-group" style="margin-top: 25px;">
+                                    <button type="button" id="processScaleBtn" class="btn-purple" onclick="processScalingAI()">Re-escalar Imagen</button>
+                                </div>
+                            </div>
+                            <div class="sidebar-footer">
+                                <button type="button" id="downloadScaledBtn" class="btn-secondary-download">Descargar Archivo HD</button>
+                            </div>
+                        </div>
+                        <div class="main-view">
+                            <div class="canvas-container" style="flex-direction: column; width: 100%;">
+                                <div id="scaleWelcomeMessage" style="text-align: center; padding: 20px;">
+                                    <span style="font-size: 44px; display:block; margin-bottom:10px;">🚀</span>
+                                    <h3 style="margin: 0 0 8px 0; font-weight:600;">Remuestreo Inteligente Integrado</h3>
+                                    <p style="color: var(--text-muted); max-width: 380px; font-size:13px; margin: 0 auto; line-height: 20px;">Reconstruye y redimensiona matrices de píxeles perdidos sobre lienzos de alta densidad gráfica para tus impresiones DTF.</p>
+                                </div>
+                                <canvas id="scaleCanvas" style="display:none;"></canvas>
+                                <div id="scaleResolutionInfo" style="margin-top:12px; font-size:12px; color:var(--accent-purple); font-weight:600; display:none;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tool-view-calculadora" class="folder-subview tools-workspace">
+                        <div class="sidebar">
+                            <div class="sidebar-content">
+                                <div class="sidebar-logo-container">
+                                    <img src="logo.png" alt="RangelShop Logo Pro">
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label for="calcWidth">Ancho del Diseño (cm):</label>
+                                    <input type="number" id="calcWidth" class="input-field" value="30" min="1" oninput="calculateDtfCost()">
+                                </div>
+
+                                <div class="control-group">
+                                    <label for="calcHeight">Alto del Diseño (cm):</label>
+                                    <input type="number" id="calcHeight" class="input-field" value="40" min="1" oninput="calculateDtfCost()">
+                                </div>
+
+                                <div class="control-group">
+                                    <label for="calcPricePerMeter">Precio por Metro Lineal ($):</label>
+                                    <input type="number" id="calcPricePerMeter" class="input-field" value="180" min="1" oninput="calculateDtfCost()">
+                                    <span style="font-size:11px; color:var(--text-muted); display:block; margin-top:4px;">*Puedes ajustar el precio según tus tarifas.</span>
+                                </div>
+
+                                <div class="control-group" style="margin-top: 30px;">
+                                    <button type="button" class="btn-green" onclick="calculateDtfCost()">Recalcular Costo</button>
+                                </div>
+                            </div>
+                            <div class="sidebar-footer">
+                                <button type="button" class="btn-secondary-download" style="border-color:rgba(16,185,129,0.3); color:var(--accent-green);" onclick="alert('Presupuesto copiado al portapapeles (Simulado)')">Exportar Cotización</button>
+                            </div>
+                        </div>
+                        <div class="main-view">
+                            <div class="calc-results-box">
+                                <div style="text-align:center; margin-bottom: 20px;">
+                                    <span style="font-size: 32px;">📊</span>
+                                    <h4 style="margin: 10px 0 0 0; font-size:18px;">Desglose de Película DTF</h4>
+                                </div>
+                                <div class="calc-row">
+                                    <span class="calc-label">Área del diseño:</span>
+                                    <span id="resArea" class="calc-val">0 cm²</span>
+                                </div>
+                                <div class="calc-row">
+                                    <span class="calc-label">Fracción de metro lineal (Ancho 60cm base):</span>
+                                    <span id="resFraction" class="calc-val">0.00 metros</span>
+                                </div>
+                                <div class="calc-row" style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color);">
+                                    <span class="calc-label" style="font-weight: 600; color: var(--text-white);">Total Estimado:</span>
+                                    <span id="resTotal" class="calc-total">$0.00 MXN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div> </div>
+        </div>
+
+        <div id="tab-membresias" class="tab-content full-page-view">
+            <div style="width:100%;">
+                <div style="text-align:center; margin-bottom: 40px;">
+                    <h2>Planes de Acceso Total</h2>
+                    <p style="color:var(--text-muted)">Elige el nivel de potencia que necesita tu taller de estampado.</p>
+                </div>
+                <div class="pricing-container">
+                    <div class="price-card">
+                        <h3>Plan Gratis</h3>
+                        <div class="price-value">$0 <span style="font-size:14px; color:var(--text-muted)">/ mes</span></div>
+                        <p style="color:var(--text-muted); font-size:13px; text-align:left; line-height:20px;">• Remoción de fondos ilimitada<br>• Servidor compartido<br>• Descarga estándar</p>
+                    </div>
+                    <div class="price-card featured">
+                        <div class="price-badge">RECOMENDADO</div>
+                        <h3>Membresía VIP Anual</h3>
+                        <div class="price-value">$299 <span style="font-size:14px; color:var(--text-muted)">MXN</span></div>
+                        <p style="color:var(--text-muted); font-size:13px; text-align:left; line-height:20px;">• Servidor dedicado Ultra veloz<br>• Descarga de todos los packs de diseños<br>• Acceso al Escalador AI de 300 DPI<br>• Soporte premium</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
-</div>
-
-<div class="app-container">
-
-<div class="tools-workspace">
-
-<!-- SIDEBAR -->
-<div class="sidebar">
-
-<label>Ancho (cm)</label>
-<input id="calcWidth" type="number" value="30" oninput="calculateDtfCost()">
-
-<label>Alto (cm)</label>
-<input id="calcHeight" type="number" value="40" oninput="calculateDtfCost()">
-
-<label>Precio metro</label>
-<input id="calcPricePerMeter" type="number" value="180" oninput="calculateDtfCost()">
-
-<!-- 🔥 NUEVO -->
-<label>Diseños por metro</label>
-<input id="calcDesigns" type="number" value="3" oninput="calculateDtfCost()">
-
-<label>Precio playera</label>
-<input id="calcShirtPrice" type="number" value="80" oninput="calculateDtfCost()">
-
-</div>
-
-<!-- MAIN -->
-<div class="main-view">
-
-<div class="calc-results-box">
-
-<div class="calc-row">
-<span>Área</span>
-<span id="resArea">0</span>
-</div>
-
-<div class="calc-row">
-<span>Metros</span>
-<span id="resFraction">0</span>
-</div>
-
-<div class="calc-row">
-<span>Total metro</span>
-<span id="resTotal">$0</span>
-</div>
-
-<!-- NUEVO -->
-<div class="calc-row">
-<span>Por diseño</span>
-<span id="resPerDesign">$0</span>
-</div>
-
-<div class="calc-row">
-<span>Total final</span>
-<span id="resFinal">$0</span>
-</div>
-
-</div>
-
-</div>
-
-</div>
 
 <script>
-
-function calculateDtfCost(){
-
-const w = parseFloat(document.getElementById("calcWidth").value)||0;
-const h = parseFloat(document.getElementById("calcHeight").value)||0;
-const price = parseFloat(document.getElementById("calcPricePerMeter").value)||0;
-
-const designs = parseInt(document.getElementById("calcDesigns").value)||1;
-const shirt = parseFloat(document.getElementById("calcShirtPrice").value)||0;
-
-const area = w*h;
-document.getElementById("resArea").innerText = area+" cm²";
-
-let m = h/100;
-if(w>58) m = Math.max(w,h)/100;
-
-const total = m * price;
-const perDesign = total / designs;
-const finalPrice = perDesign + shirt;
-
-document.getElementById("resFraction").innerText = m.toFixed(2);
-document.getElementById("resTotal").innerText = "$"+total.toFixed(2);
-document.getElementById("resPerDesign").innerText = "$"+perDesign.toFixed(2);
-document.getElementById("resFinal").innerText = "$"+finalPrice.toFixed(2);
-
+function goToHomeAndTop() {
+    switchTab('inicio');
+    const firstTab = document.getElementById('tab-inicio');
+    if (firstTab) {
+        firstTab.scrollTo({ top: 0, behavior: 'smooth' });
+    }
 }
 
-calculateDtfCost();
+function openToolsFolder() {
+    const folder = document.getElementById('toolsFolder');
+    folder.style.display = 'block';
+    folder.scrollIntoView({ behavior: 'smooth' });
+    switchFolderTool('extractor'); 
+}
 
+function closeToolsFolder() {
+    document.getElementById('toolsFolder').style.display = 'none';
+}
+
+function switchTab(tabId) {
+    const contents = document.querySelectorAll('.tab-content');
+    contents.forEach(content => content.classList.remove('active-tab'));
+    
+    const links = document.querySelectorAll('.nav-link');
+    links.forEach(link => link.classList.remove('active'));
+    
+    document.getElementById(`tab-${tabId}`).classList.add('active-tab');
+    
+    const activeBtn = document.getElementById(`btn-${tabId}`);
+    if(activeBtn) activeBtn.classList.add('active');
+
+    if(tabId !== 'inicio') {
+        document.getElementById('toolsFolder').style.display = 'none';
+    }
+}
+
+function switchFolderTool(toolId) {
+    const subviews = document.querySelectorAll('.folder-subview');
+    subviews.forEach(view => view.classList.remove('active-subview'));
+
+    const tabBtns = document.querySelectorAll('.folder-tab-btn');
+    tabBtns.forEach(btn => btn.classList.remove('active'));
+
+    document.getElementById(`tool-view-${toolId}`).classList.add('active-subview');
+    document.getElementById(`folder-tab-${toolId}`).classList.add('active');
+    
+    // Si entran a la calculadora, inicializar el cálculo inmediatamente
+    if(toolId === 'calculadora') {
+        calculateDtfCost();
+    }
+}
+
+/* ==========================================================================
+   🛠️ HERRAMIENTA 1: EXTRACTOR DE COLOR
+   ========================================================================== */
+let selectedColor = [0,0,0];
+let resultURL = "";
+
+const canvas = document.getElementById("canvas");
+const ctx = canvas.getContext("2d");
+
+document.getElementById("tolerance").addEventListener("input", e=>{
+    document.getElementById("tolValue").innerText = e.target.value;
+});
+
+document.getElementById("imageInput").addEventListener("change", function(){
+    const file = this.files[0];
+    if(!file) return;
+    document.getElementById("extractor-filename").innerText = file.name;
+    const img = new Image();
+    img.onload = ()=>{
+        canvas.width = img.width;
+        canvas.height = img.height;
+        ctx.drawImage(img,0,0);
+    };
+    img.src = URL.createObjectURL(file);
+});
+
+canvas.addEventListener("click", function(e){
+    const rect = canvas.getBoundingClientRect();
+    const x = (e.clientX - rect.left) * (canvas.width / rect.width);
+    const y = (e.clientY - rect.top) * (canvas.height / rect.height);
+    const pixel = ctx.getImageData(x,y,1,1).data;
+    selectedColor = [pixel[0],pixel[1],pixel[2]];
+    document.getElementById("colorBox").style.background = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
+});
+
+async function removeColor(){
+    const file = document.getElementById("imageInput").files[0];
+    if(!file) return alert("Por favor sube una imagen primero.");
+
+    const formData = new FormData();
+    formData.append("image", file);
+    formData.append("r", selectedColor[0]);
+    formData.append("g", selectedColor[1]);
+    formData.append("b", selectedColor[2]);
+    formData.append("tolerance", document.getElementById("tolerance").value);
+
+    const mainBtn = document.querySelector("#tool-view-extractor .btn-primary");
+    mainBtn.innerText = "Procesando...";
+    mainBtn.style.opacity = "0.7";
+
+    try {
+        const res = await fetch("https://rangelshop-backend.onrender.com/remove-background", {
+            method:"POST",
+            body:formData
+        });
+        if(!res.ok) throw new Error("Error en el servidor.");
+        const blob = await res.blob();
+        resultURL = URL.createObjectURL(blob);
+        const img = new Image();
+        img.onload = ()=>{
+            canvas.width = img.width;
+            canvas.height = img.height;
+            ctx.drawImage(img,0,0);
+        };
+        img.src = resultURL;
+    } catch (err) {
+        alert("Ocurrió un problema al procesar la imagen.");
+    } finally {
+        mainBtn.innerText = "Separar / Eliminar Color";
+        mainBtn.style.opacity = "1";
+    }
+}
+
+document.getElementById("downloadBtn").addEventListener("click", ()=>{
+    if(!resultURL) return alert("Primero procesa una imagen usando el botón de arriba.");
+    const a = document.createElement("a");
+    a.href = resultURL;
+    a.download = "rangelshop_dtf_limpio.png";
+    a.click();
+});
+
+/* ==========================================================================
+   🚀 HERRAMIENTA 2: ESCALADOR AI
+   ========================================================================== */
+let originalScaleImage = null;
+let scaledResultURL = "";
+const scaleCanvas = document.getElementById("scaleCanvas");
+const scaleCtx = scaleCanvas.getContext("2d");
+
+document.getElementById("scaleInput").addEventListener("change", function(){
+    const file = this.files[0];
+    if(!file) return;
+    document.getElementById("scale-filename").innerText = file.name;
+    originalScaleImage = new Image();
+    originalScaleImage.onload = () => {
+        document.getElementById("scaleWelcomeMessage").style.display = "none";
+        scaleCanvas.style.display = "block";
+        scaleCanvas.width = originalScaleImage.width;
+        scaleCanvas.height = originalScaleImage.height;
+        scaleCtx.clearRect(0, 0, scaleCanvas.width, scaleCanvas.height);
+        scaleCtx.drawImage(originalScaleImage, 0, 0);
+        
+        const resInfo = document.getElementById("scaleResolutionInfo");
+        resInfo.style.display = "block";
+        resInfo.innerText = `Resolución actual: ${originalScaleImage.width} x ${originalScaleImage.height} px`;
+        resInfo.style.color = "var(--text-muted)";
+    };
+    originalScaleImage.src = URL.createObjectURL(file);
+});
+
+function processScalingAI() {
+    if (!originalScaleImage) return alert("Por favor, sube una imagen primero.");
+    const factor = parseInt(document.getElementById("scaleFactorSelect").value);
+    const processBtn = document.getElementById("processScaleBtn");
+    
+    processBtn.innerText = "Reconstruyendo Píxeles...";
+    processBtn.style.opacity = "0.7";
+
+    setTimeout(() => {
+        const targetWidth = originalScaleImage.width * factor;
+        const targetHeight = originalScaleImage.height * factor;
+        scaleCanvas.width = targetWidth;
+        scaleCanvas.height = targetHeight;
+        scaleCtx.imageSmoothingEnabled = true;
+        scaleCtx.imageSmoothingQuality = 'high';
+        scaleCtx.clearRect(0, 0, targetWidth, targetHeight);
+        scaleCtx.drawImage(originalScaleImage, 0, 0, targetWidth, targetHeight);
+        scaledResultURL = scaleCanvas.toDataURL("image/png");
+
+        const resInfo = document.getElementById("scaleResolutionInfo");
+        resInfo.innerText = `¡Escalado Completado! Nueva resolución: ${targetWidth} x ${targetHeight} px (300 DPI óptimo)`;
+        resInfo.style.color = "var(--accent-purple)";
+        processBtn.innerText = "Re-escalar Imagen";
+        processBtn.style.opacity = "1";
+    }, 500);
+}
+
+document.getElementById("downloadScaledBtn").addEventListener("click", () => {
+    if (!scaledResultURL) return alert("Primero debes procesar la imagen con el botón morado.");
+    const a = document.createElement("a");
+    a.href = scaledResultURL;
+    a.download = `rangelshop_escalado_HD.png`;
+    a.click();
+});
+
+/* ==========================================================================
+   📊 HERRAMIENTA 3: CALCULADORA DE PRESUPUESTOS DTF (¡TOTALMENTE OPERATIVA!)
+   ========================================================================== */
+function calculateDtfCost() {
+    // Obtener valores ingresados por el usuario
+    const width = parseFloat(document.getElementById("calcWidth").value) || 0;
+    const height = parseFloat(document.getElementById("calcHeight").value) || 0;
+    const pricePerMeter = parseFloat(document.getElementById("calcPricePerMeter").value) || 0;
+
+    // 1. Calcular área superficial en cm²
+    const area = width * height;
+    document.getElementById("resArea").innerText = `${area.toLocaleString()} cm²`;
+
+    // 2. Calcular cuántos metros lineales de película DTF ocupa.
+    // Asumiendo un ancho estándar de bobina industrial DTF (60 cm).
+    // Si el diseño cabe a lo ancho (< 58cm dejando márgenes), calculamos la altura como fracción de metro.
+    // Si es más ancho, calculamos la dimensión mayor para determinar el avance lineal del rollo.
+    let metrosLineales = 0;
+    if (width <= 58) {
+        metrosLineales = height / 100; // Convertir altura de cm a fracción de metro
+    } else {
+        // Si el ancho supera los 58cm, asumimos que se rota o ocupa todo el ancho del avance
+        metrosLineales = Math.max(width, height) / 100;
+    }
+
+    // Asegurar un mínimo de compra o fracción razonable si los números son muy pequeños
+    if(metrosLineales < 0.1 && area > 0) metrosLineales = 0.1; 
+
+    document.getElementById("resFraction").innerText = `${metrosLineales.toFixed(2)} metros lineales`;
+
+    // 3. Calcular costo financiero total
+    const totalCost = metrosLineales * pricePerMeter;
+    document.getElementById("resTotal").innerText = `$${totalCost.toFixed(2)} MXN`;
+}
 </script>
 
 </body>
