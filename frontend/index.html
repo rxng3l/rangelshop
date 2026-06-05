@@ -44,13 +44,12 @@ body {
     height: 70px;
     display: flex;
     align-items: center;
-    justify-content: space-between; /* Mantiene extremos libres */
+    justify-content: space-between;
     padding: 0 40px;
     box-sizing: border-box;
     z-index: 100;
 }
 
-/* Contenedor invisible izquierdo para equilibrar el flexbox y forzar el centro real */
 .nav-spacer {
     flex: 1;
     display: flex;
@@ -63,7 +62,7 @@ body {
     color: var(--text-white);
     position: absolute;
     left: 50%;
-    transform: translateX(-50%); /* Centrado absoluto horizontal */
+    transform: translateX(-50%);
     cursor: pointer;
 }
 
@@ -148,7 +147,8 @@ body {
         height: auto !important;
     }
     .main-view {
-        height: 60vh;
+        height: 40vh;
+        min-height: 300px;
     }
     .hero-banner {
         flex-direction: column !important;
@@ -187,7 +187,7 @@ body {
     box-sizing: border-box;
 }
 
-/* 🎯 BANNER CON LOGO SUBIDO Y MEJOR CENTRADO */
+/* 🎯 BANNER CON LOGO SUBIDO Y CENTRADO */
 .hero-banner {
     position: relative;
     background: linear-gradient(90deg, #131316 0%, #0c0c0e 100%);
@@ -220,7 +220,6 @@ body {
     line-height: 26px;
 }
 
-/* 🚀 LOGO AJUSTADO: Se subió un poco (-56%) y se recorrió a la izquierda (-10px) para centrarlo visualmente */
 .hero-logo-container-right {
     position: absolute;
     right: 80px;
@@ -334,6 +333,7 @@ body {
     font-size: 13px;
     font-weight: 500;
     cursor: pointer;
+    transition: all 0.2s;
 }
 
 .folder-tab-btn.active {
@@ -342,17 +342,25 @@ body {
     border-color: var(--accent-blue);
 }
 
-/* ÁREA DE TRABAJO EN LA HERRAMIENTA */
-.tools-workspace {
+/* SUB-VISTAS INTERNAS DE LA CARPETA */
+.folder-subview {
+    display: none;
+}
+.folder-subview.active-subview {
     display: flex;
+}
+
+/* ÁREAS DE TRABAJO EN LAS HERRAMIENTAS */
+.tools-workspace {
     background: var(--bg-dark);
     border: 1px solid var(--border-color);
     border-radius: 12px;
     overflow: hidden;
     height: 650px;
+    width: 100%;
 }
 
-/* 🗂️ SIDEBAR DEL EXTRACTOR */
+/* 🗂️ SIDEBAR */
 .sidebar {
     width: 340px;
     background-color: var(--bg-card);
@@ -414,7 +422,6 @@ body {
 input[type=range] { -webkit-appearance: none; width: 100%; height: 4px; background: #2c2c2e; border-radius: 999px; }
 input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; border-radius: 50%; background: var(--accent-blue); border: 2px solid var(--text-white); cursor: pointer; }
 
-/* Botón principal */
 .btn-primary {
     width: 100%;
     background: var(--accent-blue);
@@ -429,7 +436,6 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px;
 }
 .btn-primary:hover { background: var(--accent-hover); transform: translateY(-1px); }
 
-/* Botón de Descarga Abajo */
 #downloadBtn { 
     width: 100%; 
     background: transparent; 
@@ -450,7 +456,7 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px;
     background: var(--bg-card); 
 }
 
-/* CANVAS */
+/* CANVAS Y ÁREAS DE DETECCIÓN */
 .main-view {
     flex-grow: 1;
     display: flex;
@@ -474,7 +480,7 @@ canvas {
     background-size: 16px 16px;
 }
 
-/* SECCIONES COMPLEMENTARIAS */
+/* PLANES */
 .pricing-container { display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
 .price-card { background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 16px; padding: 40px; width: 300px; text-align: center; }
 .price-card.featured { border-color: var(--accent-purple); position: relative; }
@@ -486,9 +492,9 @@ canvas {
 
     <!-- 📋 NAVBAR -->
     <nav class="navbar">
-        <div class="nav-spacer"></div> <!-- Mantiene el espacio izquierdo vacío -->
+        <div class="nav-spacer"></div>
         
-        <!-- Marca centralizada con retorno al inicio al hacer clic -->
+        <!-- Marca centralizada -->
         <a class="nav-brand" onclick="goToHomeAndTop()">
             <img src="logo.png" alt="RangelShop">
             <span>RangelShop</span>
@@ -497,7 +503,6 @@ canvas {
         <div class="nav-menu-wrapper">
             <ul class="nav-menu">
                 <li><a id="btn-inicio" class="nav-link active" onclick="switchTab('inicio')">Inicio</a></li>
-                <li><a id="btn-escalador" class="nav-link" onclick="switchTab('escalador')">Escalador AI</a></li>
                 <li><a id="btn-membresias" class="nav-link" onclick="switchTab('membresias')">Membresías</a></li>
             </ul>
         </div>
@@ -510,7 +515,7 @@ canvas {
         <div id="tab-inicio" class="tab-content full-page-view active-tab">
             <div style="width:100%;">
                 
-                <!-- 🎯 BANNER CON LOGO EQUILIBRADO -->
+                <!-- 🎯 BANNER LOGO EQUILIBRADO -->
                 <div class="hero-banner">
                     <div class="hero-text-content">
                         <h1>Bienvenido a RangelShop Pro</h1>
@@ -524,7 +529,6 @@ canvas {
                 <h3 class="section-title">Servicios Destacados</h3>
                 
                 <div class="content-grid-two">
-                    <!-- Cuadro Mega Pack -->
                     <div class="pro-card" style="cursor: pointer;" onclick="switchTab('membresias')">
                         <div class="card-img-placeholder">📦</div>
                         <div class="card-body">
@@ -534,7 +538,6 @@ canvas {
                         </div>
                     </div>
                     
-                    <!-- Cuadro Herramientas DTF -->
                     <div class="pro-card" style="cursor: pointer; border-color: rgba(59, 130, 246, 0.4);" onclick="openToolsFolder()">
                         <div class="card-img-placeholder">🛠️</div>
                         <div class="card-body">
@@ -552,21 +555,19 @@ canvas {
                         <button class="close-folder-btn" onclick="closeToolsFolder()">Cerrar Carpeta ↑</button>
                     </div>
 
+                    <!-- SELECTOR DE HERRAMIENTAS INTERNAS -->
                     <div class="folder-tabs">
-                        <button class="folder-tab-btn active">Quitar Fondo (Extractor)</button>
-                        <button class="folder-tab-btn" disabled style="opacity:0.4; cursor:not-allowed;">+ Próxima Herramienta</button>
+                        <button id="folder-tab-extractor" class="folder-tab-btn active" onclick="switchFolderTool('extractor')">Quitar Fondo (Extractor)</button>
+                        <button id="folder-tab-escalador" class="folder-tab-btn" onclick="switchFolderTool('escalador')">Escalador AI Intel-Sense</button>
                     </div>
 
-                    <!-- Módulo Técnico: Extractor de Color -->
-                    <div class="tools-workspace">
+                    <!-- SUB-HERRAMIENTA 1: EXTRACTOR DE COLOR -->
+                    <div id="tool-view-extractor" class="folder-subview tools-workspace active-subview">
                         <div class="sidebar">
                             <div class="sidebar-content">
-                                
-                                <!-- Logo barra lateral -->
                                 <div class="sidebar-logo-container">
                                     <img src="logo.png" alt="RangelShop Logo Pro">
                                 </div>
-
                                 <div class="control-group">
                                     <div class="file-upload-wrapper">
                                         <span class="upload-icon">📁</span>
@@ -589,14 +590,10 @@ canvas {
                                     </div>
                                     <input type="range" id="tolerance" min="0" max="300" value="120">
                                 </div>
-
-                                <!-- Botón Quitar Fondo justo arriba -->
                                 <div class="control-group" style="margin-top: 25px;">
                                     <button type="button" class="btn-primary" onclick="removeColor()">Separar / Eliminar Color</button>
                                 </div>
                             </div>
-
-                            <!-- Botón Descargar PNG Limpio en el Footer -->
                             <div class="sidebar-footer">
                                 <button type="button" id="downloadBtn">Descargar PNG Limpio</button>
                             </div>
@@ -605,27 +602,47 @@ canvas {
                             <canvas id="canvas"></canvas>
                         </div>
                     </div>
+
+                    <!-- SUB-HERRAMIENTA 2: ESCALADOR AI (MUDADO AQUÍ) -->
+                    <div id="tool-view-escalador" class="folder-subview tools-workspace">
+                        <div class="sidebar" style="border-right: 1px solid var(--border-color);">
+                            <div class="sidebar-content">
+                                <div class="sidebar-logo-container">
+                                    <img src="logo.png" alt="RangelShop Logo Pro">
+                                </div>
+                                <div class="control-group">
+                                    <h3 class="section-title" style="font-size: 13px; margin-bottom: 10px;">Escalado Red Neural</h3>
+                                    <div class="file-upload-wrapper">
+                                        <span class="upload-icon">⚡</span>
+                                        <p class="upload-text">Sube archivo para re-escalar</p>
+                                        <input type="file" disabled>
+                                    </div>
+                                </div>
+                                <div class="control-group">
+                                    <label style="font-size: 12px; color: var(--text-muted);">Factor multiplicador:</label>
+                                    <select disabled style="width:100%; background:#1c1c1e; color:var(--text-white); border:1px solid var(--border-color); padding:10px; border-radius:6px; margin-top:5px;">
+                                        <option>Aumentar x2 (Doble resolución)</option>
+                                        <option>Aumentar x4 (Ultra HD 300 DPI)</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="sidebar-footer">
+                                <button type="button" disabled style="opacity:0.5; width:100%; background:var(--accent-purple); color:white; border:none; padding:14px; border-radius:10px; font-weight:600;">Procesar en Servidor VIP</button>
+                            </div>
+                        </div>
+                        <div class="main-view" style="text-align: center; flex-direction: column;">
+                            <span style="font-size: 48px; margin-bottom: 10px;">🚀</span>
+                            <h3 style="margin: 0 0 10px 0;">Escalador AI Intel-Sense</h3>
+                            <p style="color: var(--text-muted); max-width: 380px; font-size:14px; margin: 0 auto; line-height: 20px;">Este algoritmo reconstruye píxeles perdidos para evitar el desenfoque en impresiones DTF de gran formato.</p>
+                            <p style="font-size: 12px; color: var(--accent-purple); margin-top: 20px; font-weight: 600; letter-spacing:0.5px;">MÓDULO EN DESARROLLO — PRÓXIMAMENTE DISPONIBLE</p>
+                        </div>
+                    </div>
+
                 </div> <!-- Fin de Carpeta -->
-
             </div>
         </div>
 
-        <!-- 🚀 SECCIÓN 2: ESCALADOR AI -->
-        <div id="tab-escalador" class="tab-content full-page-view">
-            <div style="width:100%; text-align: center; padding-top: 60px;">
-                <span style="font-size: 64px;">🚀</span>
-                <h2 style="font-size: 28px; margin-top: 20px;">Escalador de Imágenes AI Intel-Sense</h2>
-                <p style="color: var(--text-muted); max-width: 500px; margin: 10px auto 30px auto;">Aumenta el tamaño de tus archivos x2 y x4 veces usando redes neuronales para evitar el pixelado.</p>
-                <div style="max-width:400px; margin:0 auto;" class="file-upload-wrapper">
-                    <span class="upload-icon">⚡</span>
-                    <p class="upload-text">Sube archivo para re-escalar</p>
-                    <input type="file" disabled>
-                </div>
-                <p style="font-size: 11px; color: var(--accent-blue); margin-top: 15px; font-weight: 600;">Módulo en fase de desarrollo — Próximamente disponible</p>
-            </div>
-        </div>
-
-        <!-- 💳 SECCIÓN 3: MEMBRESÍAS -->
+        <!-- 💳 SECCIÓN 2: MEMBRESÍAS -->
         <div id="tab-membresias" class="tab-content full-page-view">
             <div style="width:100%;">
                 <div style="text-align:center; margin-bottom: 40px;">
@@ -651,7 +668,6 @@ canvas {
     </div>
 
 <script>
-// Función para ir a la pestaña Inicio y mover la vista al principio arriba de todo
 function goToHomeAndTop() {
     switchTab('inicio');
     const firstTab = document.getElementById('tab-inicio');
@@ -664,12 +680,14 @@ function openToolsFolder() {
     const folder = document.getElementById('toolsFolder');
     folder.style.display = 'block';
     folder.scrollIntoView({ behavior: 'smooth' });
+    switchFolderTool('extractor'); // Abre por defecto en el extractor
 }
 
 function closeToolsFolder() {
     document.getElementById('toolsFolder').style.display = 'none';
 }
 
+// Alternar entre pestañas globales de la App
 function switchTab(tabId) {
     const contents = document.querySelectorAll('.tab-content');
     contents.forEach(content => content.classList.remove('active-tab'));
@@ -685,6 +703,18 @@ function switchTab(tabId) {
     if(tabId !== 'inicio') {
         document.getElementById('toolsFolder').style.display = 'none';
     }
+}
+
+// Alternar entre herramientas dentro de la carpeta contenedora
+function switchFolderTool(toolId) {
+    const subviews = document.querySelectorAll('.folder-subview');
+    subviews.forEach(view => view.classList.remove('active-subview'));
+
+    const tabBtns = document.querySelectorAll('.folder-tab-btn');
+    tabBtns.forEach(btn => btn.classList.remove('active'));
+
+    document.getElementById(`tool-view-${toolId}`).classList.add('active-subview');
+    document.getElementById(`folder-tab-${toolId}`).classList.add('active');
 }
 
 // LÓGICA DE CANVAS EXTRACTOR
@@ -733,7 +763,7 @@ async function removeColor(){
     formData.append("b", selectedColor[2]);
     formData.append("tolerance", document.getElementById("tolerance").value);
 
-    const mainBtn = document.querySelector(".control-group .btn-primary");
+    const mainBtn = document.querySelector("#tool-view-extractor .btn-primary");
     mainBtn.innerText = "Procesando...";
     mainBtn.style.opacity = "0.7";
 
