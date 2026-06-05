@@ -120,10 +120,11 @@ body {
     .hero-banner {
         flex-direction: column !important;
         text-align: center !important;
+        padding: 40px 30px !important;
     }
     .hero-logo-right {
+        max-width: 200px !important;
         margin-top: 20px;
-        max-width: 150px !important;
     }
 }
 
@@ -144,21 +145,24 @@ body {
     box-sizing: border-box;
 }
 
-/* 🎯 HERO BANNER REDISEÑADO CON TU LOGO GIGANTE A LA DERECHA */
+/* 🎯 HERO BANNER CON LOGO ENORME A LA DERECHA (ESTILO CÍRCULO AZUL REFERENCIA) */
 .hero-banner {
     background: linear-gradient(90deg, #18181b 0%, #09090b 100%);
     border: 1px solid var(--border-color);
     border-radius: 16px;
-    padding: 50px 60px;
+    padding: 60px;
     margin-bottom: 40px;
     display: flex;
     align-items: center;
     justify-content: space-between;
     gap: 40px;
+    overflow: hidden; /* Evita que el logo gigante desborde el recuadro */
+    position: relative;
 }
 
 .hero-text-content {
     flex: 1;
+    z-index: 2; /* Asegura que el texto quede por encima si se enciman en pantallas medianas */
 }
 
 .hero-banner h1 { 
@@ -171,15 +175,20 @@ body {
     color: var(--text-muted); 
     font-size: 16px; 
     margin: 0; 
-    max-width: 650px; 
+    max-width: 600px; 
     line-height: 24px;
 }
 
 .hero-logo-right {
-    max-width: 220px;
-    height: auto;
+    width: 100%;
+    max-width: 310px; /* Tamaño gigante exacto al círculo azul de referencia */
+    height: 310px;
     object-fit: contain;
     flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
 }
 
 /* SECCIÓN INFERIOR */
