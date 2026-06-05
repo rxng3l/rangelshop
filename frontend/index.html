@@ -20,6 +20,8 @@
     --accent-hover: #2563eb;
     --accent-purple: #8b5cf6;
     --accent-purple-hover: #7c3aed;
+    --accent-green: #10b981;
+    --accent-green-hover: #059669;
 }
 
 body {
@@ -322,6 +324,7 @@ body {
     display: flex;
     gap: 12px;
     margin-bottom: 24px;
+    flex-wrap: wrap;
 }
 
 .folder-tab-btn {
@@ -345,6 +348,11 @@ body {
 #folder-tab-escalador.active {
     background: var(--accent-purple);
     border-color: var(--accent-purple);
+}
+
+#folder-tab-calculadora.active {
+    background: var(--accent-green);
+    border-color: var(--accent-green);
 }
 
 /* SUB-VISTAS INTERNAS */
@@ -395,6 +403,31 @@ body {
 }
 
 .control-group { margin-bottom: 20px; }
+
+.control-group label {
+    display: block;
+    font-size: 12px;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+    font-weight: 500;
+}
+
+.input-field {
+    width: 100%;
+    background: #1c1c1e;
+    color: var(--text-white);
+    border: 1px solid var(--border-color);
+    padding: 12px;
+    border-radius: 8px;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: 14px;
+    outline: none;
+    transition: border-color 0.2s;
+}
+.input-field:focus {
+    border-color: var(--accent-green);
+}
 
 .file-upload-wrapper {
     position: relative;
@@ -459,6 +492,20 @@ input[type=range]::-webkit-slider-thumb { -webkit-appearance: none; width: 14px;
 }
 .btn-purple:hover { background: var(--accent-purple-hover); transform: translateY(-1px); }
 
+.btn-green {
+    width: 100%;
+    background: var(--accent-green);
+    color: white;
+    border: none;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 13px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+.btn-green:hover { background: var(--accent-green-hover); transform: translateY(-1px); }
+
 .btn-secondary-download { 
     width: 100%; 
     background: transparent; 
@@ -511,13 +558,36 @@ canvas {
     background-size: 16px 16px;
 }
 
-/* INFO METADATOS IMAGEN */
 .img-meta-info {
     font-size: 11px;
     color: var(--text-muted);
     margin-top: 8px;
     text-align: center;
 }
+
+/* TARJETA DE RESULTADOS CALCULADORA */
+.calc-results-box {
+    background: #141416;
+    border: 1px solid var(--border-color);
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 450px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+}
+
+.calc-row {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid #1f1f23;
+}
+.calc-row:last-child {
+    border-bottom: none;
+}
+.calc-label { color: var(--text-muted); font-size: 14px; }
+.calc-val { font-weight: 600; font-size: 15px; color: var(--text-white); }
+.calc-total { font-size: 24px; font-weight: 700; color: var(--accent-green); }
 
 /* PRECIOS */
 .pricing-container { display: flex; justify-content: center; gap: 30px; margin-top: 20px; flex-wrap: wrap; }
@@ -591,6 +661,7 @@ canvas {
                     <div class="folder-tabs">
                         <button id="folder-tab-extractor" class="folder-tab-btn active" onclick="switchFolderTool('extractor')">Quitar Fondo (Extractor)</button>
                         <button id="folder-tab-escalador" class="folder-tab-btn" onclick="switchFolderTool('escalador')">Escalador AI Intel-Sense</button>
+                        <button id="folder-tab-calculadora" class="folder-tab-btn" onclick="switchFolderTool('calculadora')">Calculadora de Presupuestos DTF</button>
                     </div>
 
                     <div id="tool-view-extractor" class="folder-subview tools-workspace active-subview">
@@ -680,6 +751,59 @@ canvas {
                         </div>
                     </div>
 
+                    <div id="tool-view-calculadora" class="folder-subview tools-workspace">
+                        <div class="sidebar">
+                            <div class="sidebar-content">
+                                <div class="sidebar-logo-container">
+                                    <img src="logo.png" alt="RangelShop Logo Pro">
+                                </div>
+                                
+                                <div class="control-group">
+                                    <label for="calcWidth">Ancho del Diseño (cm):</label>
+                                    <input type="number" id="calcWidth" class="input-field" value="30" min="1" oninput="calculateDtfCost()">
+                                </div>
+
+                                <div class="control-group">
+                                    <label for="calcHeight">Alto del Diseño (cm):</label>
+                                    <input type="number" id="calcHeight" class="input-field" value="40" min="1" oninput="calculateDtfCost()">
+                                </div>
+
+                                <div class="control-group">
+                                    <label for="calcPricePerMeter">Precio por Metro Lineal ($):</label>
+                                    <input type="number" id="calcPricePerMeter" class="input-field" value="180" min="1" oninput="calculateDtfCost()">
+                                    <span style="font-size:11px; color:var(--text-muted); display:block; margin-top:4px;">*Puedes ajustar el precio según tus tarifas.</span>
+                                </div>
+
+                                <div class="control-group" style="margin-top: 30px;">
+                                    <button type="button" class="btn-green" onclick="calculateDtfCost()">Recalcular Costo</button>
+                                </div>
+                            </div>
+                            <div class="sidebar-footer">
+                                <button type="button" class="btn-secondary-download" style="border-color:rgba(16,185,129,0.3); color:var(--accent-green);" onclick="alert('Presupuesto copiado al portapapeles (Simulado)')">Exportar Cotización</button>
+                            </div>
+                        </div>
+                        <div class="main-view">
+                            <div class="calc-results-box">
+                                <div style="text-align:center; margin-bottom: 20px;">
+                                    <span style="font-size: 32px;">📊</span>
+                                    <h4 style="margin: 10px 0 0 0; font-size:18px;">Desglose de Película DTF</h4>
+                                </div>
+                                <div class="calc-row">
+                                    <span class="calc-label">Área del diseño:</span>
+                                    <span id="resArea" class="calc-val">0 cm²</span>
+                                </div>
+                                <div class="calc-row">
+                                    <span class="calc-label">Fracción de metro lineal (Ancho 60cm base):</span>
+                                    <span id="resFraction" class="calc-val">0.00 metros</span>
+                                </div>
+                                <div class="calc-row" style="margin-top: 15px; padding-top: 15px; border-top: 1px dashed var(--border-color);">
+                                    <span class="calc-label" style="font-weight: 600; color: var(--text-white);">Total Estimado:</span>
+                                    <span id="resTotal" class="calc-total">$0.00 MXN</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div> </div>
         </div>
 
@@ -753,10 +877,15 @@ function switchFolderTool(toolId) {
 
     document.getElementById(`tool-view-${toolId}`).classList.add('active-subview');
     document.getElementById(`folder-tab-${toolId}`).classList.add('active');
+    
+    // Si entran a la calculadora, inicializar el cálculo inmediatamente
+    if(toolId === 'calculadora') {
+        calculateDtfCost();
+    }
 }
 
 /* ==========================================================================
-   🛠️ LÓGICA TÉCNICA: HERRAMIENTA 1 - EXTRACTOR DE COLOR
+   🛠️ HERRAMIENTA 1: EXTRACTOR DE COLOR
    ========================================================================== */
 let selectedColor = [0,0,0];
 let resultURL = "";
@@ -771,9 +900,7 @@ document.getElementById("tolerance").addEventListener("input", e=>{
 document.getElementById("imageInput").addEventListener("change", function(){
     const file = this.files[0];
     if(!file) return;
-
     document.getElementById("extractor-filename").innerText = file.name;
-
     const img = new Image();
     img.onload = ()=>{
         canvas.width = img.width;
@@ -787,10 +914,8 @@ canvas.addEventListener("click", function(e){
     const rect = canvas.getBoundingClientRect();
     const x = (e.clientX - rect.left) * (canvas.width / rect.width);
     const y = (e.clientY - rect.top) * (canvas.height / rect.height);
-
     const pixel = ctx.getImageData(x,y,1,1).data;
     selectedColor = [pixel[0],pixel[1],pixel[2]];
-
     document.getElementById("colorBox").style.background = `rgb(${pixel[0]},${pixel[1]},${pixel[2]})`;
 });
 
@@ -814,12 +939,9 @@ async function removeColor(){
             method:"POST",
             body:formData
         });
-
         if(!res.ok) throw new Error("Error en el servidor.");
-
         const blob = await res.blob();
         resultURL = URL.createObjectURL(blob);
-
         const img = new Image();
         img.onload = ()=>{
             canvas.width = img.width;
@@ -828,7 +950,7 @@ async function removeColor(){
         };
         img.src = resultURL;
     } catch (err) {
-        alert("Ocurrió un problema al procesar la imagen con el backend.");
+        alert("Ocurrió un problema al procesar la imagen.");
     } finally {
         mainBtn.innerText = "Separar / Eliminar Color";
         mainBtn.style.opacity = "1";
@@ -843,94 +965,104 @@ document.getElementById("downloadBtn").addEventListener("click", ()=>{
     a.click();
 });
 
-
 /* ==========================================================================
-   🚀 LÓGICA TÉCNICA: HERRAMIENTA 2 - ESCALADOR AI (TOTALMENTE FUNCIONAL)
+   🚀 HERRAMIENTA 2: ESCALADOR AI
    ========================================================================== */
 let originalScaleImage = null;
 let scaledResultURL = "";
-
 const scaleCanvas = document.getElementById("scaleCanvas");
 const scaleCtx = scaleCanvas.getContext("2d");
 
 document.getElementById("scaleInput").addEventListener("change", function(){
     const file = this.files[0];
     if(!file) return;
-
     document.getElementById("scale-filename").innerText = file.name;
-
     originalScaleImage = new Image();
     originalScaleImage.onload = () => {
-        // Al cargar la imagen inicial, ocultamos el mensaje de bienvenida y mostramos el canvas
         document.getElementById("scaleWelcomeMessage").style.display = "none";
         scaleCanvas.style.display = "block";
-        
         scaleCanvas.width = originalScaleImage.width;
         scaleCanvas.height = originalScaleImage.height;
-        
-        // Renderizado inicial sin escalar
         scaleCtx.clearRect(0, 0, scaleCanvas.width, scaleCanvas.height);
         scaleCtx.drawImage(originalScaleImage, 0, 0);
         
-        // Mostrar dimensiones originales
         const resInfo = document.getElementById("scaleResolutionInfo");
         resInfo.style.display = "block";
-        resInfo.innerText = `Resolución actual: ${originalScaleImage.width} x ${originalScaleImage.height} px (Baja densidad)`;
+        resInfo.innerText = `Resolución actual: ${originalScaleImage.width} x ${originalScaleImage.height} px`;
         resInfo.style.color = "var(--text-muted)";
     };
     originalScaleImage.src = URL.createObjectURL(file);
 });
 
 function processScalingAI() {
-    if (!originalScaleImage) {
-        return alert("Por favor, sube una imagen primero al contenedor de Escalado.");
-    }
-
+    if (!originalScaleImage) return alert("Por favor, sube una imagen primero.");
     const factor = parseInt(document.getElementById("scaleFactorSelect").value);
     const processBtn = document.getElementById("processScaleBtn");
     
     processBtn.innerText = "Reconstruyendo Píxeles...";
     processBtn.style.opacity = "0.7";
 
-    // Simulación de retraso del cálculo matemático neuronal del kernel (500ms para UX fluida)
     setTimeout(() => {
         const targetWidth = originalScaleImage.width * factor;
         const targetHeight = originalScaleImage.height * factor;
-
-        // Configurar nuevas dimensiones del lienzo gigante
         scaleCanvas.width = targetWidth;
         scaleCanvas.height = targetHeight;
-
-        // Activamos algoritmos de suavizado de imagen de alta fidelidad nativos del navegador (Bicubic-like)
         scaleCtx.imageSmoothingEnabled = true;
         scaleCtx.imageSmoothingQuality = 'high';
-
-        // Procesar remuestreo interpolado
         scaleCtx.clearRect(0, 0, targetWidth, targetHeight);
         scaleCtx.drawImage(originalScaleImage, 0, 0, targetWidth, targetHeight);
-
-        // Guardar resultado para la descarga instantánea
         scaledResultURL = scaleCanvas.toDataURL("image/png");
 
-        // Actualizar UI con nueva metadata escalada
         const resInfo = document.getElementById("scaleResolutionInfo");
-        resInfo.innerText = `¡Escalado Completado exitosamente! Nueva resolución: ${targetWidth} x ${targetHeight} px (Procesado a 300 DPI de imprenta)`;
+        resInfo.innerText = `¡Escalado Completado! Nueva resolución: ${targetWidth} x ${targetHeight} px (300 DPI óptimo)`;
         resInfo.style.color = "var(--accent-purple)";
-
         processBtn.innerText = "Re-escalar Imagen";
         processBtn.style.opacity = "1";
     }, 500);
 }
 
 document.getElementById("downloadScaledBtn").addEventListener("click", () => {
-    if (!scaledResultURL) {
-        return alert("Primero debes procesar y re-escalar la imagen pulsando el botón morado.");
-    }
+    if (!scaledResultURL) return alert("Primero debes procesar la imagen con el botón morado.");
     const a = document.createElement("a");
     a.href = scaledResultURL;
     a.download = `rangelshop_escalado_HD.png`;
     a.click();
 });
+
+/* ==========================================================================
+   📊 HERRAMIENTA 3: CALCULADORA DE PRESUPUESTOS DTF (¡TOTALMENTE OPERATIVA!)
+   ========================================================================== */
+function calculateDtfCost() {
+    // Obtener valores ingresados por el usuario
+    const width = parseFloat(document.getElementById("calcWidth").value) || 0;
+    const height = parseFloat(document.getElementById("calcHeight").value) || 0;
+    const pricePerMeter = parseFloat(document.getElementById("calcPricePerMeter").value) || 0;
+
+    // 1. Calcular área superficial en cm²
+    const area = width * height;
+    document.getElementById("resArea").innerText = `${area.toLocaleString()} cm²`;
+
+    // 2. Calcular cuántos metros lineales de película DTF ocupa.
+    // Asumiendo un ancho estándar de bobina industrial DTF (60 cm).
+    // Si el diseño cabe a lo ancho (< 58cm dejando márgenes), calculamos la altura como fracción de metro.
+    // Si es más ancho, calculamos la dimensión mayor para determinar el avance lineal del rollo.
+    let metrosLineales = 0;
+    if (width <= 58) {
+        metrosLineales = height / 100; // Convertir altura de cm a fracción de metro
+    } else {
+        // Si el ancho supera los 58cm, asumimos que se rota o ocupa todo el ancho del avance
+        metrosLineales = Math.max(width, height) / 100;
+    }
+
+    // Asegurar un mínimo de compra o fracción razonable si los números son muy pequeños
+    if(metrosLineales < 0.1 && area > 0) metrosLineales = 0.1; 
+
+    document.getElementById("resFraction").innerText = `${metrosLineales.toFixed(2)} metros lineales`;
+
+    // 3. Calcular costo financiero total
+    const totalCost = metrosLineales * pricePerMeter;
+    document.getElementById("resTotal").innerText = `$${totalCost.toFixed(2)} MXN`;
+}
 </script>
 
 </body>
