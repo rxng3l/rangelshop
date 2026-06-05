@@ -809,6 +809,15 @@ canvas {
                                     <span class="calc-label" style="font-weight: 600; color: var(--text-white);">Total Estimado:</span>
                                     <span id="resTotal" class="calc-total">$0.00 MXN</span>
                                 </div>
+                                <div class="calc-row">
+    <span class="calc-label">Costo por diseño:</span>
+    <span id="resPerDesign" class="calc-val">$0.00 MXN</span>
+</div>
+
+<div class="calc-row">
+    <span class="calc-label">Costo con playera:</span>
+    <span id="resFinal" class="calc-total">$0.00 MXN</span>
+</div>
                             </div>
                         </div>
                     </div>
@@ -1042,35 +1051,45 @@ document.getElementById("downloadScaledBtn").addEventListener("click", () => {
    📊 HERRAMIENTA 3: CALCULADORA DE PRESUPUESTOS DTF (¡TOTALMENTE OPERATIVA!)
    ========================================================================== */
 function calculateDtfCost() {
-    // Obtener valores ingresados por el usuario
     const width = parseFloat(document.getElementById("calcWidth").value) || 0;
     const height = parseFloat(document.getElementById("calcHeight").value) || 0;
     const pricePerMeter = parseFloat(document.getElementById("calcPricePerMeter").value) || 0;
 
-    // 1. Calcular área superficial en cm²
+    const designs = parseInt(document.getElementById("calcDesigns").value) || 1;
+    const shirtPrice = parseFloat(document.getElementById("calcShirtPrice").value) || 0;
+
     const area = width * height;
     document.getElementById("resArea").innerText = `${area.toLocaleString()} cm²`;
 
-    // 2. Calcular cuántos metros lineales de película DTF ocupa.
-    // Asumiendo un ancho estándar de bobina industrial DTF (60 cm).
-    // Si el diseño cabe a lo ancho (< 58cm dejando márgenes), calculamos la altura como fracción de metro.
-    // Si es más ancho, calculamos la dimensión mayor para determinar el avance lineal del rollo.
     let metrosLineales = 0;
+
     if (width <= 58) {
-        metrosLineales = height / 100; // Convertir altura de cm a fracción de metro
+        metrosLineales = height / 100;
     } else {
-        // Si el ancho supera los 58cm, asumimos que se rota o ocupa todo el ancho del avance
         metrosLineales = Math.max(width, height) / 100;
     }
 
-    // Asegurar un mínimo de compra o fracción razonable si los números son muy pequeños
-    if(metrosLineales < 0.1 && area > 0) metrosLineales = 0.1; 
+    if (metrosLineales < 0.1 && area > 0) {
+        metrosLineales = 0.1;
+    }
 
-    document.getElementById("resFraction").innerText = `${metrosLineales.toFixed(2)} metros lineales`;
+    document.getElementById("resFraction").innerText =
+        `${metrosLineales.toFixed(2)} metros lineales`;
 
-    // 3. Calcular costo financiero total
     const totalCost = metrosLineales * pricePerMeter;
-    document.getElementById("resTotal").innerText = `$${totalCost.toFixed(2)} MXN`;
+
+    const costPerDesign = totalCost / designs;
+
+    const finalCost = costPerDesign + shirtPrice;
+
+    document.getElementById("resTotal").innerText =
+        `$${totalCost.toFixed(2)} MXN`;
+
+    document.getElementById("resPerDesign").innerText =
+        `$${costPerDesign.toFixed(2)} MXN`;
+
+    document.getElementById("resFinal").innerText =
+        `$${finalCost.toFixed(2)} MXN`;
 }
 </script>
 
